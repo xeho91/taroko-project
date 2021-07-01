@@ -38,6 +38,8 @@ module.exports = defineConfig({
     ],
 
     rules: {
+		"@typescript-eslint/no-unsafe-assignment": ["off"],
+		"@typescript-eslint/no-unsafe-member-access": ["off"],
     },
 
 	settings: {
@@ -46,7 +48,7 @@ module.exports = defineConfig({
 		},
 
 		"import/parsers": {
-			"@typescript-eslint/parser": [".ts", ".tsx"],
+			"@typescript-eslint/parser": [".ts", ".tsx", ".scss"],
 		},
 
 		"import/resolver": {

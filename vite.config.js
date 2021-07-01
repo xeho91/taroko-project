@@ -8,15 +8,7 @@ export default defineConfig({
 	plugins: [
 		reactRefresh(),
 		tsConfigPaths({
-			extensions: [
-				".js",
-				".jsx",
-				".ts",
-				".tsx",
-				"json",
-				".css",
-				".scss",
-			],
+			extensions: [".js", ".jsx", ".ts", ".tsx", "json"],
 		}),
 	],
 });
