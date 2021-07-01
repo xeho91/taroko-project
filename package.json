@@ -48,7 +48,8 @@
     "stylelint-scss": "^3.19.0",
     "tslib": "^2.3.0",
     "typescript": "^4.3.5",
-    "vite": "^2.3.8"
+    "vite": "^2.3.8",
+    "vite-tsconfig-paths": "^3.3.13"
   },
   "dependencies": {
     "modern-normalize": "^1.1.0",

@@ -23,7 +23,10 @@
     "strict": true,
     "skipLibCheck": false,
 
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "$components/*": ["./src/components/*"]
+    }
   },
 
   "include": ["src/**/*"],
