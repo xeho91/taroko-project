@@ -1,0 +1,10 @@
+To my understanding, solution two (option 2).
+It avoids unnecessary binding.
+
+Assuming the array list will have 1000 items, then the JavaScript engine will
+take the time to find the specific child node to make any event listener
+operation it.
+
+To sum up, it will take a significant performance toll because it
+will have to loop all of the childNodes, to get/find specific element
+properties.
