@@ -1,0 +1,10 @@
+@import "../../styles/library.scss";
+
+.contactsList {
+	@include flex(row, flex-start);
+	flex-wrap: wrap;
+	gap: 2em;
+
+	padding: 2em;
+	overflow-y: auto;
+}

@@ -38,6 +38,7 @@ module.exports = defineConfig({
     ],
 
     rules: {
+		"react/prop-types": ["off"],
 		"@typescript-eslint/no-unsafe-assignment": ["off"],
 		"@typescript-eslint/no-unsafe-member-access": ["off"],
     },

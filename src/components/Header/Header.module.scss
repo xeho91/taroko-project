@@ -1,0 +1,25 @@
+@import "../../styles/library.scss";
+
+.pageHeader {
+	@include flex(row, space-between, center);
+
+	height: var(--header-height);
+	padding: 1rem 2rem;
+
+	background-color: var(--color-primary);
+
+	& > h1 {
+		margin: 0;
+
+		& > a {
+			color: var(--color-secondary);
+			text-decoration: none;
+		}
+	}
+
+	& > .addButton {
+		@include button;
+
+		background-color: var(--color-green);
+	}
+}

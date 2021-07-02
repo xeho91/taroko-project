@@ -1,0 +1,25 @@
+@import "../../styles/library.scss";
+
+.nav {
+	& ul {
+		@include flex(row, center, space-around);
+
+		padding: 0;
+		margin: 0;
+
+		list-style: none;
+
+		& > li {
+			margin: 0 1rem;
+
+			& > a {
+				color: var(--color-secondary);
+				text-decoration: none;
+
+				&[aria-current="page"] {
+					font-weight: bolder;
+				}
+			}
+		}
+	}
+}

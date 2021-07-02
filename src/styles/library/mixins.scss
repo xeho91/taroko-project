@@ -1,0 +1,29 @@
+@mixin flex($direction, $placeX: center, $placeY: center) {
+	display: flex;
+	flex-direction: $direction;
+
+	@if $placeX {
+		place-content: $placeX;
+	}
+
+	@if $placeY {
+		place-items: $placeY;
+	}
+}
+
+@mixin size($size) {
+	width: $size;
+	height: $size;
+}
+
+@mixin button {
+	width: 12ch;
+	padding: 0.5rem 1rem;
+
+	color: var(--color-white);
+	text-align: center;
+	text-decoration: none;
+	white-space: nowrap;
+
+	box-shadow: 1px 1px 1px 1px var(--color-shadow);
+} ;

@@ -1,0 +1,74 @@
+@import "../../styles/library.scss";
+
+.contactBox {
+	--box-height: 10em;
+
+	position: relative;
+
+	@include flex(row, flex-start);
+	flex: 1 0;
+	gap: 0.5rem;
+
+	min-width: 60ch;
+	height: var(--box-height);
+	padding: 1em;
+
+	background-color: var(--color-box);
+	border: 1px solid black;
+
+	& .profile {
+		@include size(calc(var(--box-height) - 1rem));
+		margin: 0.25rem;
+	}
+
+	& .details {
+		--font-incrementer: 0.25rem;
+
+		height: 100%;
+
+		& > p {
+			margin: 0.25rem 0;
+
+			color: var(--color-primary);
+
+			&.name {
+				font-size: calc(1rem + (var(--font-incrementer) * 2));
+
+				& > .firstName {
+					text-transform: uppercase;
+				}
+				& > .lastName {
+					font-weight: bolder;
+				}
+			}
+
+			&.job {
+				font-size: calc(1rem + (var(--font-incrementer) * 1));
+				font-style: italic;
+			}
+
+			&.description {
+				margin-top: 1em;
+			}
+		}
+	}
+
+	.buttons {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+
+		@include flex(column);
+
+		& > .editButton,
+		& > .deleteButton {
+			@include button;
+		}
+		& > .editButton {
+			background-color: var(--color-blue);
+		}
+		& > .deleteButton {
+			background-color: var(--color-red);
+		}
+	}
+}
