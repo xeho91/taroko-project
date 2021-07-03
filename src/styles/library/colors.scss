@@ -1,17 +1,15 @@
-:root {
-	// Core
-	--color-primary: hsla(297deg, 84%, 10%, 1);
-	--color-secondary: hsla(27deg, 72%, 59%, 1);
+// Core
+$color-primary: var(--color-primary);
+$color-secondary: var(--color-secondary);
 
-	// Miscelaneous
-	--color-shadow: hsla(22deg, 85%, 8%, 1);
-	--color-border: hsla(0deg, 0%, 0%, 1);
-	--color-box: hsla(26deg, 56%, 73%, 1);
+// Miscelaneous
+$color-shadow: var(--color-shadow);
+$color-border: var(--color-border);
+$color-box: var(--color-box);
 
-	// Feedback colors
-	--color-green: hsla(108deg, 39%, 28%, 1);
-	--color-blue: hsla(215deg, 51%, 39%, 1);
-	--color-red: hsla(351deg, 73%, 40%, 1);
-	--color-yellow: hsla(44deg, 83%, 44%, 1);
-	--color-white: hsla(60deg, 24%, 96%, 1);
-}
+// Feedback colors
+$color-green: var(--color-green);
+$color-blue: var(--color-blue);
+$color-red: var(--color-red);
+$color-yellow: var(--color-yellow);
+$color-white: var(--color-white);
