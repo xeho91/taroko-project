@@ -6,8 +6,7 @@
 
     "target": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "types": ["node", "react"],
-    "typeRoots": ["node_modules/@types"],
+    "types": ["node", "react", "vite/client"],
     "importHelpers": true,
 
     "jsx": "react",
@@ -26,17 +25,27 @@
 
     "plugins": [
       {
-        "name": "typescript-plugin-css-modules"
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "renderOptions": {
+            "sass": {
+              "file": "library.scss",
+              "includePaths": ["./src/styles"]
+            }
+          }
+        }
       }
     ],
 
     "baseUrl": ".",
     "paths": {
+      "$components": ["./src/components/index.ts"],
       "$components/*": ["./src/components/*"],
-      "$context/*": ["./src/context/*"],
+      "$context": ["./src/context.tsx"],
       "$styles/*": ["./src/styles/*"],
       "$types": ["./src/types.ts"],
-      "$pages": ["./src/pages.ts"],
+      "$reducer": ["./src/reducer.tsx"],
+      "$routes": ["./src/routes/index.ts"],
       "$routes/*": ["./src/routes/*"]
     }
   },
