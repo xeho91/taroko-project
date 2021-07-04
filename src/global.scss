@@ -1,6 +1,6 @@
-@import "../node_modules/modern-normalize/modern-normalize.css";
+@use "./styles" as *;
 
-@import "./styles/library.scss";
+@import "../node_modules/modern-normalize/modern-normalize.css";
 
 // Colors
 :root {
