@@ -14,11 +14,9 @@ const ContactsList: FunctionComponent = () => {
 	}, [list]);
 
     function handleClick() {
-        setRenderedList(renderedList.sort((a, b) => {
+        setRenderedList([...renderedList.sort((a, b) => {
 			return a.first_name.localeCompare(b.first_name);
-        }));
-
-		console.log(renderedList);
+        })]);
     }
 
     if (list.length > 0) {
