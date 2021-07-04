@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "./global.scss";
 
-import App from "./App";
+import App from "$components/App";
 
 render(
 	<StrictMode>
