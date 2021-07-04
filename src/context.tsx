@@ -35,6 +35,20 @@ const initialState: ContactsState = {
             job: "Jedi Master",
             description: "Not the chosen one.",
         },
+        {
+            id: 3,
+            first_name: "Han",
+            last_name: "Solo",
+            job: "Smuggler",
+            description: "The coolest guy.",
+        },
+        {
+            id: 4,
+            first_name: "Ben",
+            last_name: "Solo",
+            job: "Sith / Jedi",
+            description: "Lost guy. Another chosen one perhaps?",
+        },
     ],
 };
 
