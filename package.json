@@ -8,7 +8,7 @@
   "homepage": "https://github.com/xeho91/taroko-project#readme",
   "scripts": {
     "build": "tsc && vite build",
-    "clean": "rimraf ./build",
+    "clean": "rimraf \"./build\" \"./.cache\"",
     "dev": "vite",
     "format": "prettier --write \"./src/**/*\"",
     "lint": "run-s lint:*",
