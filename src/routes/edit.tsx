@@ -1,101 +1,61 @@
-import styles from "$styles/forms.module.scss";
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import { Form } from "$components";
+import { ContactsContext } from "$context";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { GlobalContext } from "../context/GlobalState";
 
-import type { Contact, FunctionComponent } from "$types";
+import type {
+    ContactSchema,
+    FormEvent,
+    FunctionComponent,
+    RouteComponentProps,
+} from "$types";
 
-export const EditContact: FunctionComponent = (route) => {
-	const history = useHistory();
-	const currentContactId = route.match.params.id as Contact["id"];
-	const { list, editContact } = useContext(GlobalContext);
-	const [selectedContact, setSelectedContact] = useState({
-		id: null,
-		first_name: "",
-		last_name: "",
-		job: "",
-		description: "",
-	});
+interface EditRouteParams {
+    id: string;
+}
 
-	useEffect(() => {
-		const contactId = currentContactId;
-		const selectedContact = list.find(({ id }) => id === contactId);
+type EditComponentProps = RouteComponentProps<EditRouteParams>;
 
-		if (selectedContact) {
-			setSelectedContact(selectedContact);
-		}
-	}, [currentContactId, list]);
+const EditContact: FunctionComponent<EditComponentProps> = (props) => {
+    const { state: { list }, editContact } = useContext(ContactsContext);
+    const contactId = parseInt(props.match.params.id);
+    const [contactData, setContactData] = useState(list[contactId - 1]);
+    const history = useHistory();
 
-	function handleSubmit(e: InputEvent) {
-		e.preventDefault();
-		editContact(selectedContact);
-		history.push("/");
-	}
+    function handleSubmit(e: FormEvent) {
+        e.preventDefault();
+        editContact(contactData);
+        history.push("/");
+    }
 
-	const handleOnChange = (userKey: keyof Contact, newValue: string) => {
-		return setSelectedContact({ ...selectedContact, [userKey]: newValue });
-	};
+    type EditableContactSchemaKey = keyof Omit<ContactSchema, "id">;
+    // FIXME: Make it more strict.
+    type EditableContactSchemaValue = string;
 
-	if (!selectedContact || !selectedContact.id) {
-		return <p>Invalid contact ID.</p>;
-	}
+    const handleOnChange = (
+        key: EditableContactSchemaKey,
+        value: EditableContactSchemaValue,
+    ) => {
+        return setContactData({ ...contactData, [key]: value });
+    };
 
-	return (
-		<Fragment>
-			<form
-				id="contact-editor"
-				className={styles.contactEditor}
-				onSubmit={handleSubmit}
-			>
-				<div className={styles.field}>
-					<label htmlFor="first_name">First name</label>
-					<input
-						type="text"
-						name="first_name"
-						value={selectedContact.first_name}
-						onChange={(e) =>
-							handleOnChange("first_name", e.target.value)
-						}
-						required
-					/>
-				</div>
-
-				<div className={styles.field}>
-					<label htmlFor="last_name">Last name</label>
-					<input
-						type="text"
-						name="last_name"
-						value={selectedContact.last_name}
-						onChange={(e) => handleOnChange("last_name", e.target.value)}
-						required
-					/>
-				</div>
-
-				<div className={styles.field}>
-					<label htmlFor="job">Job</label>
-					<input
-						type="text"
-						name="first_name"
-						value={selectedContact.job}
-						onChange={(e) => handleOnChange("job", e.target.value)}
-						required
-					/>
-				</div>
-
-				<div className={styles.field}>
-					<label htmlFor="description">Description</label>
-					<textarea
-						name="description"
-						value={selectedContact.description}
-						onChange={(e) =>
-							handleOnChange("description", e.target.value)
-						}
-						required
-					/>
-				</div>
-
-				<input type="submit" value="Submit" />
-			</form>
-		</Fragment>
-	);
+    if (!contactData) {
+        return <p>Invalid contact ID.</p>;
+    } else {
+        return (
+            <Form
+                onSubmit={handleSubmit}
+                firstNameValue={contactData.first_name}
+                onFirstNameChange={(e) => handleOnChange("first_name", e.target.value)}
+                lastNameValue={contactData.last_name}
+                onLastNameChange={(e) => handleOnChange("last_name", e.target.value)}
+                jobValue={contactData.job}
+                onJobChange={(e) => handleOnChange("job", e.target.value)}
+                descriptionValue={contactData.description}
+                onDescriptionChange={(e) => handleOnChange("description", e.target.value)}
+            />
+        );
+    }
 };
+
+export default EditContact;

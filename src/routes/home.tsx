@@ -1,15 +1,17 @@
-import ContactsList from "$components/ContactsList/ContactsList";
-import { GlobalProvider } from "src/context/GlobalState";
-import { FunctionComponent } from "$types";
+import { ContactsProvider } from "$context";
+import { ContactsList } from "$components";
 import React from "react";
 
+import { FunctionComponent } from "$types";
+
 const Home: FunctionComponent = () => {
-	return (
-		<GlobalProvider>
-			<h1>Contacts</h1>
-			<ContactsList />
-		</GlobalProvider>
-	);
+    return (
+        <ContactsProvider>
+            <h1>Contacts</h1>
+
+            <ContactsList />
+        </ContactsProvider>
+    );
 };
 
 export default Home;
