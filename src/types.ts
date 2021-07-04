@@ -8,6 +8,14 @@ export type {
 } from "react";
 export type { RouteComponentProps, RouteProps } from "react-router-dom";
 
+export type {
+    ContactActionAdd,
+    ContactActionEdit,
+    ContactActionGet,
+    ContactActionRemove,
+    ContactActionType,
+} from "$reducer";
+
 export interface ContactSchema {
     id: number;
     first_name: string;

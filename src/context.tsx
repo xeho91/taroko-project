@@ -1,13 +1,15 @@
-import contactsReducer, {
+import contactsReducer, { ContactActionType } from "$reducer";
+import React, { createContext, useReducer } from "react";
+
+import type {
     ContactActionAdd,
     ContactActionEdit,
     ContactActionGet,
     ContactActionRemove,
-    ContactActionType,
-} from "$reducer";
-import React, { createContext, useReducer } from "react";
-
-import type { ContactsState, Dispatch, FunctionComponent } from "$types";
+    ContactsState,
+    Dispatch,
+    FunctionComponent,
+} from "$types";
 
 interface ContactsContextProps {
     state: ContactsState;
@@ -47,6 +49,7 @@ export const ContactsContext = createContext<ContactsContextProps>({
 export const ContactsProvider: FunctionComponent = ({ children }) => {
     const [state, dispatch] = useReducer(contactsReducer, initialState);
 
+    // FIXME: It doesn't add to the list in ContactsContext
     function addContact(data: ContactActionAdd["payload"]) {
         dispatch({
             type: ContactActionType.Create,
@@ -54,14 +57,15 @@ export const ContactsProvider: FunctionComponent = ({ children }) => {
         });
     }
 
+    // NOTE: This one is not used, so far.
     function getContact(id: ContactActionGet["payload"]) {
-		console.log("Hello from getContact, the id is:", id);
         dispatch({
             type: ContactActionType.Retrieve,
             payload: id,
         });
     }
 
+    // FIXME: It doesn't update the ContactsContext
     function editContact(contact: ContactActionEdit["payload"]) {
         dispatch({
             type: ContactActionType.Update,
@@ -69,9 +73,8 @@ export const ContactsProvider: FunctionComponent = ({ children }) => {
         });
     }
 
+    // NOTE: This one works.
     function removeContact(id: ContactActionRemove["payload"]) {
-		console.log("Hello");
-		console.log("The id is:", id);
         dispatch({
             type: ContactActionType.Delete,
             payload: id,
