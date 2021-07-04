@@ -1,5 +1,6 @@
 import personBoundingBox from "@iconify-icons/bi/person-bounding-box";
-import { Button, Icon } from "$components";
+import { Button } from "$components";
+import { Icon } from "@iconify/react";
 import { ContactsContext } from "$context";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
