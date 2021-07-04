@@ -99,7 +99,7 @@ export const ContactsProvider: FunctionComponent = ({ children }) => {
     return (
         <ContactsContext.Provider
             value={{
-                state,
+				state,
                 addContact,
                 getContact,
                 editContact,

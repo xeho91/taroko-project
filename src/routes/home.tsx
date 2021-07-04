@@ -1,16 +1,15 @@
-import { ContactsProvider } from "$context";
 import { ContactsList } from "$components";
-import React from "react";
+import React, { Fragment } from "react";
 
 import { FunctionComponent } from "$types";
 
 const Home: FunctionComponent = () => {
     return (
-        <ContactsProvider>
+		<Fragment>
             <h1>Contacts</h1>
 
             <ContactsList />
-        </ContactsProvider>
+		</Fragment>
     );
 };
 
