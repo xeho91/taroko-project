@@ -1,0 +1,41 @@
+@use "../../styles" as *;
+
+.buttonAdd {
+	position: fixed;
+	top: calc((var(--header-height) - 1em) / 2);
+	right: 1em;
+
+	background-color: aliceblue;
+}
+
+.contactEditor {
+	position: fixed;
+	top: var(--header-height);
+
+	@include flex(column);
+
+	padding: 1em;
+
+	background-color: white;
+	border-radius: 0.5rem;
+}
+
+.field {
+	@include flex(row, flex-end, center);
+
+	width: 100%;
+	margin: 1em 0;
+
+	& > label {
+		margin-right: 1ch;
+		white-space: nowrap;
+	}
+
+	& > input {
+		height: 2em;
+	}
+
+	& > textarea {
+		height: 5em;
+	}
+}

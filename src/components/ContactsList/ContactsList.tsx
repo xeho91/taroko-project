@@ -1,12 +1,12 @@
-import Contact from "$components/Contact/Contact";
+import { Contact } from "$components";
 import React, { useContext } from "react";
 import styles from "./ContactsList.module.scss";
 
-import { GlobalContext } from "src/context/GlobalState";
+import { ContactsContext } from "$context";
 import type { FunctionComponent } from "$types";
 
 const ContactsList: FunctionComponent = () => {
-	const { list } = useContext(GlobalContext);
+	const { state: { list } } = useContext(ContactsContext);
 
 	if (list.length > 0) {
 		return (

@@ -1,4 +1,4 @@
-@import "../../styles/library.scss";
+@use "../../styles" as *;
 
 .contactBox {
 	--box-height: 10em;

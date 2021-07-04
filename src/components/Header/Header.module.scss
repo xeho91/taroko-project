@@ -1,4 +1,4 @@
-@import "../../styles/library.scss";
+@use "../../styles" as *;
 
 .pageHeader {
 	@include flex(row, space-between, center);

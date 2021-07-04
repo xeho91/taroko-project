@@ -1,4 +1,4 @@
-@import "../../styles/library.scss";
+@use "../../styles" as *;
 
 .contactsList {
 	@include flex(row, flex-start);
