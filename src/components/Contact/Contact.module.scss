@@ -1,74 +1,122 @@
-@use "../../styles" as *;
+@use "../../styles/library" as *;
 
 .contactBox {
-	--box-height: 10em;
+	--box-height: 12em;
+	--box-gap: 0.5rem;
+
+	&[aria-expanded="false"] {
+		--box-height: 12em;
+
+		@include flex(row);
+
+
+		& .profile {
+			@media screen and (max-width: 50ch) {
+				display: none;
+			}
+		}
+
+		& .description {
+			width: 20ch;
+			overflow: hidden;
+
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		& .buttons {
+			@include flex(column);
+		}
+	}
+	&[aria-expanded="true"] {
+		--box-height: 100%;
+
+		@include flex(column);
+
+		max-width: 120ch;
+		margin: 0 auto;
+
+		& .buttons {
+			@include flex(row, center, flex-end);
+		}
+	}
 
 	position: relative;
 
-	@include flex(row, flex-start);
-	flex: 1 0;
-	gap: 0.5rem;
+	@include flex(row);
+	gap: var(--box-gap);
 
-	min-width: 60ch;
+	width: min(80ch, 95vw);
 	height: var(--box-height);
-	padding: 1em;
+	padding: var(--box-gap);
 
-	background-color: var(--color-box);
-	border: 1px solid black;
+	color: var(--color-foreground-alt);
+
+	background-color: var(--color-background-alt);
+	border: var(--border);
+	box-shadow: var(--box-shadow);
 
 	& .profile {
-		@include size(calc(var(--box-height) - 1rem));
-		margin: 0.25rem;
+		--min-profile-size: 6em;
+
+		min-width: var(--min-profile-size);
+		min-height: var(--min-profile-size);
+
+		& > svg {
+			@include size(100%);
+		}
+
+		/* @media screen and (max-width: 40ch) { */
+		/* 	display: none; */
+		/* } */
 	}
 
 	& .details {
-		--font-incrementer: 0.25rem;
+		@include flex(column, center, flex-start);
 
-		height: 100%;
+		@include size(100%);
 
 		& > p {
-			margin: 0.25rem 0;
-
-			color: var(--color-primary);
+			margin: var(--box-gap);
 
 			&.name {
-				font-size: calc(1rem + (var(--font-incrementer) * 2));
+				@include flex(row, flex-start);
+				gap: 0.25ch;
+				line-height: 1em;
 
+				& > .contactId {
+					@include flex(row);
+
+					@include size(1.5rem);
+
+					font-size: smaller;
+					text-align: center;
+
+					background-color: var(--color-background);
+				}
 				& > .firstName {
+					font-size: larger;
 					text-transform: uppercase;
 				}
 				& > .lastName {
+					font-size: larger;
 					font-weight: bolder;
 				}
 			}
 
 			&.job {
-				font-size: calc(1rem + (var(--font-incrementer) * 1));
 				font-style: italic;
 			}
 
 			&.description {
-				margin-top: 1em;
+				font-size: smaller;
 			}
 		}
 	}
 
 	.buttons {
-		position: absolute;
-		top: 1rem;
-		right: 1rem;
+		@include flex(column, flex-start);
 
-		@include flex(column);
-
-		& > .editButton,
-		& > .deleteButton {
-			@include button;
-		}
-		& > .editButton {
-			background-color: var(--color-blue);
-		}
-		& > .deleteButton {
-			background-color: var(--color-red);
-		}
+		height: 100%;
 	}
 }

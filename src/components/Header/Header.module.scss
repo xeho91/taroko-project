@@ -1,25 +1,10 @@
-@use "../../styles" as *;
+@use "../../styles/library" as *;
 
 .pageHeader {
 	@include flex(row, space-between, center);
 
 	height: var(--header-height);
-	padding: 1rem 2rem;
+	padding: 0 var(--content-padding);
 
-	background-color: var(--color-primary);
-
-	& > h1 {
-		margin: 0;
-
-		& > a {
-			color: var(--color-secondary);
-			text-decoration: none;
-		}
-	}
-
-	& > .addButton {
-		@include button;
-
-		background-color: var(--color-green);
-	}
+	background-color: var(--color-background);
 }
