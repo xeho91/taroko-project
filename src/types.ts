@@ -4,9 +4,10 @@ export type {
     Dispatch,
     FormEvent,
     FunctionComponent,
+    HTMLProps,
     MutableRefObject,
 } from "react";
-export type { RouteComponentProps, RouteProps } from "react-router-dom";
+export type { LinkProps, RouteComponentProps, RouteProps } from "react-router-dom";
 
 export type {
     ContactActionAdd,
@@ -26,6 +27,7 @@ export interface ContactSchema {
 
 export interface ContactsState {
     list: ContactSchema[];
+	deletedIds: number[];
 }
 
 export interface IconifyIcon {

@@ -1,10 +1,10 @@
 import { ContactSchema, ContactsState } from "$types";
 
 export enum ContactActionType {
-    Create = "ADD",
-    Retrieve = "GET",
-    Update = "EDIT",
-    Delete = "REMOVE",
+    Create = "ADD CONTACT",
+    Retrieve = "GET CONTACT",
+    Update = "EDIT CONTACT",
+    Delete = "REMOVE CONTACT",
 }
 
 // TODO:
@@ -38,10 +38,36 @@ type ContactAction =
     | ContactActionEdit
     | ContactActionRemove;
 
-function reducer(state: ContactsState, action: ContactAction): ContactsState {
+export enum ListActionType {
+	Retrieve = "GET LIST",
+    Sort = "SORT LIST",
+}
+
+export interface ListActionGet {
+    type: ListActionType.Retrieve;
+}
+
+export interface ListActionSort {
+    type: ListActionType.Sort;
+}
+
+type ListAction = ListActionGet | ListActionSort;
+
+function reducer(
+    state: ContactsState,
+    action: ContactAction | ListAction,
+): ContactsState {
     switch (action.type) {
         case ContactActionType.Create: {
-            const id = state.list.length + 1;
+			let id: number;
+
+			if (state.deletedIds.length > 0) {
+				id = state.deletedIds[0];
+				state.deletedIds.shift();
+			} else {
+				id = state.list.length + 1;
+			}
+
             const newContact = {
                 id,
                 ...action.payload,
@@ -54,12 +80,13 @@ function reducer(state: ContactsState, action: ContactAction): ContactsState {
         }
 
         case ContactActionType.Retrieve: {
-			const contactId = action.payload;
+            const contactId = action.payload;
             const contactData = state.list.find(({ id }) => id === contactId);
 
             // FIXME: There has to be better handling, when contact not found.
             if (contactData) {
                 return {
+					...state,
                     list: [contactData],
                 };
             } else {
@@ -87,11 +114,28 @@ function reducer(state: ContactsState, action: ContactAction): ContactsState {
             const contactId = action.payload;
             const updatedList = state.list.filter(({ id }) => id !== contactId);
 
+			state.deletedIds.push(contactId);
+
             return {
                 ...state,
                 list: updatedList,
             };
         }
+
+		case ListActionType.Retrieve: {
+			return state;
+		}
+
+		case ListActionType.Sort: {
+			const sortedList = state.list.sort((a, b) => {
+				return a.first_name.localeCompare(b.first_name);
+			});
+
+			return {
+				...state,
+				list: sortedList,
+			}
+		}
 
         default:
             return state;
