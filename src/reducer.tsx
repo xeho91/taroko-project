@@ -45,6 +45,7 @@ export enum ListActionType {
 
 export interface ListActionGet {
     type: ListActionType.Retrieve;
+	payload: ContactSchema[];
 }
 
 export interface ListActionSort {
@@ -123,7 +124,12 @@ function reducer(
         }
 
 		case ListActionType.Retrieve: {
-			return state;
+			const list = action.payload;
+
+			return {
+				...state,
+				list,
+			};
 		}
 
 		case ListActionType.Sort: {
