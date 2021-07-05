@@ -1,0 +1,70 @@
+@import "../../../node_modules/@xeho91/colors";
+
+:root {
+	/* Core  */
+	--color-background: var(--color-clairvoyant);
+	--color-background-alt: var(--color-mulberry);
+
+	--color-foreground: var(--color-terracotta);
+	--color-foreground-alt: var(--color-calico);
+
+	/* Feedback */
+	--color_error-fg: var(--color-pampas);
+	--color_error-bg: var(--color-cardinal);
+
+	--color_info-fg: var(--color-pampas);
+	--color_info-bg: var(--color-azure);
+
+	--color_normal-fg: var(--color-pampas);
+	--color_normal-bg: var(--color-corduroy);
+
+	--color_success-fg: var(--color-pampas);
+	--color_success-bg: var(--color-woodland);
+
+	--color_warning-fg: var(--color-background);
+	--color_warning-bg: var(--color-pizza);
+
+	/* States */
+	--color_brighter-fg: var(--color-calico);
+	--color_brighter-bg: var(--color-calico);
+
+
+	--color_disabled-fg: hsla(var(--calico_HSL), 0.77);
+	--color_disabled-bg: var(--color-mahogany);
+
+	--color_enabled-fg: var(--color-kilamanjaro);
+	--color_enabled-bg: var(--color-terracotta);
+
+	--color_focused-bg: var(--color-pampas);
+	--color_focused-fg: var(--color-clairvoyant);
+
+	--color_hovered-fg: var(--color-kilamanjaro);
+	--color_hovered-bg: var(--color-jade);
+
+	--color_action-fg: var(--color-clairvoyant);
+	--color_action-bg: var(--color-calico);
+
+	--color_valid-fg: var(--color-pampas);
+	--color_valid-bg: var(--color-woodland);
+
+	--color_invalid-fg: var(--color-pampas);
+	--color_invalid-bg: var(--color-cardinal);
+
+	/* Other */
+	--gradient:
+		var(--color-clairvoyant),
+		var(--color-mulberry),
+		var(--color-disco),
+		var(--color-punch),
+		var(--color-terracotta);
+
+	--color-darkened: hsla(var(--clairvoyant_HSL), 0.25);
+
+	--color_terminal-fg: var(--color-pampas);
+	--color_terminal-bg: hsla(
+		var(--corduroy_hue),
+		var(--corduroy_saturation),
+		calc(var(--corduroy_lightness) - 10%),
+		var(--corduroy_alpha)
+	);
+}

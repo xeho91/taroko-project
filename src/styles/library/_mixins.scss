@@ -16,14 +16,29 @@
 	height: $size;
 }
 
-@mixin button {
-	width: 12ch;
-	padding: 0.5rem 1rem;
+@mixin border {
+	border-color: var(--color-border);
+	border-style: var(--border-style);
+	border-width: var(--border-width);
+}
 
-	color: var(--color-white);
-	text-align: center;
-	text-decoration: none;
-	white-space: nowrap;
+/* stylelint-disable a11y/selector-pseudo-class-focus */
+@mixin hover {
+	&:hover {
+		color: var(--color_hovered-fg);
+		background-color: var(--color_hovered-bg);
+		border-color: var(--color_hovered-bg);
+		@content;
+	}
+}
 
-	box-shadow: 1px 1px 1px 1px var(--color-shadow);
-} ;
+@mixin focus() {
+	&:focus {
+		color: var(--color_focused-fg);
+		background-color: var(--color_focused-bg);
+		border-color: var(--color_focused-bg);
+		@content;
+	}
+}
+/* stylelint-enable a11y/selector-pseudo-class-focus */
+
