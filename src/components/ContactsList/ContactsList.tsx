@@ -1,35 +1,29 @@
-import { Button, Contact } from "$components";
-import React, { Fragment, useContext, useState } from "react";
+import { Contact } from "$components";
+import { ContactsContext } from "$context";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./ContactsList.module.scss";
 
-import { ContactsContext } from "$context";
 import type { FunctionComponent } from "$types";
 
 const ContactsList: FunctionComponent = () => {
-    const { state: { list } } = useContext(ContactsContext);
-	const [renderedList, setRenderedList] = useState(list);
+    const { state } = useContext(ContactsContext);
+    const [renderedList, setRenderedList] = useState(state.list);
 
-    function handleClick() {
-        setRenderedList([...renderedList.sort((a, b) => {
-			return a.first_name.localeCompare(b.first_name);
-        })]);
-    }
+    useEffect(() => {
+        setRenderedList([...state.list]);
+    }, [state]);
 
     if (renderedList.length > 0) {
         return (
-            <Fragment>
-                <Button label="Sort by first name" onClick={handleClick} />
-
-                <ul className={styles.contactsList}>
-                    {renderedList.map((contact, index) => {
-                        return (
-                            <li key={index}>
-                                <Contact {...contact} />
-                            </li>
-                        );
-                    })}
-                </ul>
-            </Fragment>
+            <ul className={styles.contactsList}>
+                {renderedList.map((contact, index) => {
+                    return (
+                        <li key={index}>
+                            <Contact {...contact} />
+                        </li>
+                    );
+                })}
+            </ul>
         );
     } else {
         return <p>No data.</p>;
