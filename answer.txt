@@ -1,3 +1,45 @@
+// NEW ANSWER
+I stand by solution two as the choice for the best way of writing React code.
+
+The main reason is, it avoids side effects.
+I made an example sandbox to provide a base for the explanation:
+https://codesandbox.io/s/youthful-glitter-6en77
+
+In the second solution, the event listener is assigned directly to the desired
+element.
+So, the handler will return the innerHTML code of the child element.
+Example (from the Solution 2 - Option Two):
+```
+Clicked on: Dog-2106
+```
+
+Meanwhile, in the first option, it is possible to click more than one element.
+We'll get an unexpected behaviour of returning the entire parent node inner
+HTML code.
+There's also a performance lag because the browser's engine is trying to read it.
+It can be noticeable if the list more than 1000 elements,
+or the child node inner code will be more prosperous
+(as in more inner HTML code for each component).
+Example (from the Solution 1 - Option One):
+```
+Clicked on: <h2>Option One</h2><div>Cat-1</div><div>Cat-2</div><div>Cat-3</div>...truncated...</div>
+```
+When users accidentally "select" more than just one element,
+it happens, which is not an excepted behaviour.
+
+The second solution doesn't have this problem. It is working fast.
+It returns what we expected because the click event handler is assigned directly
+to each child element instead of the parent. So, we specify better for the
+engine which inner HTML code to return.
+
+
+
+
+
+
+
+
+// OLD ANSWER - Unclear, contradist
 To my understanding, solution two (option 2).
 It avoids unnecessary binding.
 
