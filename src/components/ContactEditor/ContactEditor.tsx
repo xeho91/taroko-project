@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import styles from "./Form.module.scss";
+import styles from "./ContactEditor.module.scss";
 
 import type {
     ChangeEvent,
@@ -27,7 +27,7 @@ interface FormProps {
     onDescriptionChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const Form: FunctionComponent<FormProps> = (props) => {
+const ContactEditor: FunctionComponent<FormProps> = (props) => {
     const {
         onSubmit,
         firstNameValue,
@@ -96,7 +96,7 @@ const Form: FunctionComponent<FormProps> = (props) => {
                         name="description"
                         value={descriptionValue}
                         onChange={onDescriptionChange}
-						minLength={40}
+						minLength={10}
 						placeholder="Provide a description here..."
                         required
                     />
@@ -108,4 +108,4 @@ const Form: FunctionComponent<FormProps> = (props) => {
     );
 };
 
-export default Form;
+export default ContactEditor;

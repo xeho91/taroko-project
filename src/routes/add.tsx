@@ -1,4 +1,4 @@
-import { Form } from "$components";
+import { ContactEditor } from "$components";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ContactsContext } from "$context";
@@ -32,7 +32,7 @@ const AddContact: FunctionComponent<AddComponentProps> = () => {
     }
 
     return (
-        <Form
+        <ContactEditor
 			onSubmit={handleSubmit}
 			firstNameValue={first_name}
 			onFirstNameChange={(e) => setFirstName(e.target.value)}
