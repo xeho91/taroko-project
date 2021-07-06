@@ -14,8 +14,9 @@ module.exports = {
 
 	rules: {
 		"at-rule-no-unknown": null,
+		"no-invalid-position-at-import-rule": [false],
 		"no-duplicate-selectors": [true, { ignore: ":root" }],
-		"scss/at-rule-no-unknown": true,
+		"scss/at-rule-no-unknown": [true, { ignoreAtRules: ["use"] }],
 		"plugin/no-unsupported-browser-features": [true, { severity: "error" }],
 	}
 };
