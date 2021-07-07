@@ -1,77 +1,86 @@
+import { ContactsContext } from "$helpers/ContactsContext";
 import iconSortAscending from "@iconify-icons/bi/sort-alpha-down";
 import iconSortDescending from "@iconify-icons/bi/sort-alpha-up";
-import { ButtonIcon, Contact } from "$components";
-import { ContactsContext } from "$helpers/ContactsContext";
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import { ButtonIcon, Contact, Loader } from "$components";
+import React, { Fragment, useContext, useState } from "react";
 import styles from "./ContactsList.module.scss";
-import randomData from "./randomData.json";
+import { contacts } from "./exampleContacts.json";
 
-import type { FunctionComponent } from "react";
 import { Button } from "src/components/buttons";
-import { ContactSchema } from "$types";
+import type { FunctionComponent } from "react";
 
 const ContactsList: FunctionComponent = () => {
-    const { state, sortList, addContact } = useContext(ContactsContext);
-    const [renderedList, setRenderedList] = useState(state.list);
-	const [pressed, setPressed] = useState(false);
+    const { state, isProcessing, sortList, addContact } = useContext(
+        ContactsContext,
+    );
+    const [sortPressed, setSortPressed] = useState(false);
 
-	const icon = state.sortOrder === "ascending" ? iconSortAscending : iconSortDescending;
+    const icon = state.sortOrder === "ascending"
+        ? iconSortAscending
+        : iconSortDescending;
 
-    useEffect(() => {
-        setRenderedList([...state.list]);
-    }, [state]);
+    function handleSortListClick() {
+        if (!sortPressed) {
+            setSortPressed(true);
+        }
 
-	function handleSortClick() {
-		if (!pressed) {
-			setPressed(true);
-		}
+        sortList(state.sortOrder === "ascending" ? "descending" : "ascending");
+    }
 
-		sortList(state.sortOrder === "ascending" ? "descending" : "ascending");
-	}
+    function useExampleContactsClick() {
+        contacts.forEach((item) => {
+            addContact(item);
+        });
+    }
 
-	function handleGenerateClick() {
-		const contacts = randomData.contacts as ContactSchema[];
-
-		contacts.forEach((item) => {
-			addContact(item);
-		});
-	}
-
-    if (renderedList.length > 0) {
+    if (isProcessing) {
         return (
-            <Fragment>
-                <ButtonIcon
-					id="btn-sort-list"
-					aria-pressed={pressed}
-                    icon={icon}
-                    onClick={handleSortClick}
-                    title={`Sort by first name in ${state.sortOrder} order`}
-                />
-
-                <ul className={styles.contactsList}>
-                    {renderedList.map((contact, index) => {
-                        return (
-                            <li key={index}>
-                                <Contact {...contact} />
-                            </li>
-                        );
-                    })}
-                </ul>
-            </Fragment>
+            <Loader message="Please wait, fetching data from the API..." />
         );
     } else {
-        return (
-			<Fragment>
-				<p>The list is empty. Consider adding a <a href="#btn-add-contact">new contact</a> or <a href="#btn-generate-contacts">generate a random data</a>.</p>
+        if (state.list.length > 0) {
+            return (
+                <Fragment>
+                    <ButtonIcon
+                        id="btn-sort-list"
+                        aria-pressed={sortPressed}
+                        icon={icon}
+                        onClick={handleSortListClick}
+                        title={`Sort by first name in ${state.sortOrder} order`}
+                    />
 
-				<Button
-					id="btn-generate-contacts"
-					label="Generate random data"
-					onClick={handleGenerateClick}
-					title="Generate a random list of contacts data"
-				/>
-			</Fragment>
-		);
+                    <ul className={styles.contactsList}>
+                        {state.list.map((contact, index) => {
+                            return (
+                                <li key={index}>
+                                    <Contact {...contact} />
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </Fragment>
+            );
+        } else {
+            return (
+                <Fragment>
+                    <p>
+                        The list is empty. Consider adding a
+                        <a href="#btn-add-contact">new contact</a>
+                        or
+                        <a href="#btn-use-example-contacts">
+                            use an example contacts list
+                        </a>.
+                    </p>
+
+                    <Button
+                        id="btn-use-example-contacts"
+                        label="Use an example contacts data"
+                        onClick={useExampleContactsClick}
+                        title="Click to use an example list of contacts data"
+                    />
+                </Fragment>
+            );
+        }
     }
 };
 
