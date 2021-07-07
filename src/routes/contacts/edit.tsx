@@ -1,14 +1,11 @@
+import { ContactsContext } from "$helpers/ContactsContext";
 import { ContactEditor } from "$components";
-import { ContactsContext } from "$context";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import type {
-    ContactSchema,
-    FormEvent,
-    FunctionComponent,
-    RouteComponentProps,
-} from "$types";
+import type { ContactSchema } from "$types";
+import type { FormEvent, FunctionComponent } from "react";
+import type { RouteComponentProps } from "react-router-dom";
 
 interface EditRouteParams {
     id: string;
@@ -31,12 +28,11 @@ const EditContact: FunctionComponent<EditComponentProps> = (props) => {
     if (!contactData) {
         return <p>Invalid contact ID.</p>;
     } else {
-
-		const handleSubmit = (e: FormEvent) => {
-			e.preventDefault();
-			editContact(contactData);
-			history.push("/");
-		}
+        const handleSubmit = (e: FormEvent) => {
+            e.preventDefault();
+            editContact(contactData);
+            history.push("/");
+        };
 
         const handleOnChange = (
             key: EditableContactSchemaKey,
@@ -48,17 +44,13 @@ const EditContact: FunctionComponent<EditComponentProps> = (props) => {
         return (
             <ContactEditor
                 onSubmit={handleSubmit}
-
                 firstNameValue={contactData.first_name}
                 onFirstNameChange={(e) =>
                     handleOnChange("first_name", e.target.value)}
-
                 lastNameValue={contactData.last_name}
                 onLastNameChange={(e) => handleOnChange("last_name", e.target.value)}
-
                 jobValue={contactData.job}
                 onJobChange={(e) => handleOnChange("job", e.target.value)}
-
                 descriptionValue={contactData.description}
                 onDescriptionChange={(e) =>
                     handleOnChange("description", e.target.value)}

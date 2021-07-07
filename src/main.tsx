@@ -1,6 +1,6 @@
-import { Header } from "$components";
 import { ContactsProvider } from "$helpers/ContactsContext";
-import { AddContact, EditContact, Home, ViewContact } from "$routes";
+import { Header } from "$components";
+import { AddContact, Contacts, EditContact, ViewContact } from "$routes";
 import React, { StrictMode } from "react";
 import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
@@ -16,10 +16,10 @@ render(
 
                 <main>
                     <Switch>
-                        <Route path="/" component={Home} exact />
-                        <Route path="/add" component={AddContact} exact />
-                        <Route path="/edit/:id" component={EditContact} exact />
-                        <Route path="/view/:id" component={ViewContact} exact />
+                        <Route path="/contacts" component={Contacts} exact />
+                        <Route path="/contacts/add" component={AddContact} exact />
+                        <Route path="/contacts/edit/:id" component={EditContact} exact />
+                        <Route path="/contacts/view/:id" component={ViewContact} exact />
                     </Switch>
                 </main>
             </ContactsProvider>

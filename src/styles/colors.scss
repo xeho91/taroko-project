@@ -1,4 +1,4 @@
-@import "../../node_modules/@xeho91/colors";
+@import "~/node_modules/@xeho91/colors";
 
 :root {
 	/* Core  */
@@ -8,15 +8,25 @@
 	--color-foreground: var(--color-terracotta);
 	--color-foreground-alt: var(--color-calico);
 
+	/* CRUD */
+	--color_create-fg: var(--color-pampas);
+	--color_create-bg: var(--color-woodland);
+
+	--color_receive-fg: var(--color-kilamanjaro);
+	--color_receive-bg: var(--color-calico);
+
+	--color_update-fg: var(--color-pampas);
+	--color_update-bg: var(--color-azure);
+
+	--color_destroy-fg: var(--color-pampas);
+	--color_destroy-bg: var(--color-cardinal);
+
 	/* Feedback */
 	--color_error-fg: var(--color-pampas);
 	--color_error-bg: var(--color-cardinal);
 
 	--color_info-fg: var(--color-pampas);
 	--color_info-bg: var(--color-azure);
-
-	--color_normal-fg: var(--color-pampas);
-	--color_normal-bg: var(--color-corduroy);
 
 	--color_success-fg: var(--color-pampas);
 	--color_success-bg: var(--color-woodland);
@@ -25,10 +35,6 @@
 	--color_warning-bg: var(--color-pizza);
 
 	/* States */
-	--color_brighter-fg: var(--color-calico);
-	--color_brighter-bg: var(--color-calico);
-
-
 	--color_disabled-fg: hsla(var(--calico_HSL), 0.77);
 	--color_disabled-bg: var(--color-mahogany);
 
@@ -41,14 +47,17 @@
 	--color_hovered-fg: var(--color-kilamanjaro);
 	--color_hovered-bg: var(--color-jade);
 
-	--color_action-fg: var(--color-clairvoyant);
-	--color_action-bg: var(--color-calico);
-
 	--color_valid-fg: var(--color-pampas);
 	--color_valid-bg: var(--color-woodland);
 
 	--color_invalid-fg: var(--color-pampas);
 	--color_invalid-bg: var(--color-cardinal);
+
+	--color_active-fg: var(--color-kilamanjaro);
+	--color_active-bg: var(--color-calico);
+
+	--color_inactive-fg: var(--color-pampas);
+	--color_inactive-bg: var(--color-corduroy);
 
 	/* Other */
 	--gradient:
@@ -57,14 +66,4 @@
 		var(--color-disco),
 		var(--color-punch),
 		var(--color-terracotta);
-
-	--color-darkened: hsla(var(--clairvoyant_HSL), 0.25);
-
-	--color_terminal-fg: var(--color-pampas);
-	--color_terminal-bg: hsla(
-		var(--corduroy_hue),
-		var(--corduroy_saturation),
-		calc(var(--corduroy_lightness) - 10%),
-		var(--corduroy_alpha)
-	);
 }

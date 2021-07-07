@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Contact } from "$components";
-import { ContactsContext } from "$context";
+import { ContactsContext } from "$helpers/ContactsContext";
 
-import type { FunctionComponent, RouteComponentProps } from "$types";
+import type { FunctionComponent } from "react";
+import type { RouteComponentProps } from "react-router-dom";
 
 interface ViewRouteParams {
     id: string;

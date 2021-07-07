@@ -1,4 +1,4 @@
-export { default as Home } from "./home";
-export { default as AddContact } from "./add";
-export { default as EditContact } from "./edit";
-export { default as ViewContact } from "./view";
+export { default as Contacts } from "./contacts";
+export { default as AddContact } from "./contacts/add";
+export { default as EditContact } from "./contacts/edit";
+export { default as ViewContact } from "./contacts/view";

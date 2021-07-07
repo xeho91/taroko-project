@@ -1,13 +1,12 @@
 import { ContactEditor } from "$components";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ContactsContext } from "$context";
+import { ContactsContext } from "$helpers/ContactsContext";
 
-import type { FormEvent, FunctionComponent, RouteComponentProps } from "$types";
+import type { FormEvent, FunctionComponent } from "react";
+import type { RouteComponentProps } from "react-router-dom";
 
-type AddComponentProps = RouteComponentProps;
-
-const AddContact: FunctionComponent<AddComponentProps> = () => {
+const AddContact: FunctionComponent<RouteComponentProps> = () => {
     const history = useHistory();
 
 	const { addContact } = useContext(ContactsContext);
@@ -34,12 +33,16 @@ const AddContact: FunctionComponent<AddComponentProps> = () => {
     return (
         <ContactEditor
 			onSubmit={handleSubmit}
+
 			firstNameValue={first_name}
 			onFirstNameChange={(e) => setFirstName(e.target.value)}
+
 			lastNameValue={last_name}
 			onLastNameChange={(e) => setLastName(e.target.value)}
+
 			jobValue={job}
 			onJobChange={(e) => setJob(e.target.value)}
+
 			descriptionValue={description}
 			onDescriptionChange={(e) => setDescription(e.target.value)}
 		/>
