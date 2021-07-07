@@ -33,7 +33,7 @@ const ContactsList: FunctionComponent = () => {
         });
     }
 
-    if (isProcessing) {
+    if (isProcessing && state.list.length === 0) {
         return (
             <Loader message="Please wait, fetching data from the API..." />
         );

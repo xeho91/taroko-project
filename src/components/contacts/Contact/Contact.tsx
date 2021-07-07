@@ -17,7 +17,7 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
 	const isViewMode = window.location.pathname.includes("/view");
 	const [isPressed, setIsPressed] = useState(false);
 
-    const { removeContact } = useContext(ContactsContext);
+    const { isProcessing, removeContact } = useContext(ContactsContext);
 
     function deleteContact() {
         removeContact(id);
@@ -78,7 +78,7 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
                     title="Delete this contact"
                     onClick={deleteContact}
 					color="destroy"
-					disabled={isPressed}
+					disabled={isPressed && isProcessing}
                 />
             </div>
         </div>

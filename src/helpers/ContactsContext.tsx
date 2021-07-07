@@ -4,7 +4,13 @@ import contactsReducer, {
 } from "$helpers/contactsReducer";
 import { StatusCodes } from "http-status-codes";
 import React, { createContext, useEffect, useReducer, useState } from "react";
-import { addContactData, deleteContactData, getContactData, getListData, updateContactData } from "./contactsAPIrequests";
+import {
+    addContactData,
+    deleteContactData,
+    getContactData,
+    getListData,
+    updateContactData,
+} from "./contactsAPIrequests";
 
 import type {
     ContactsListActionGet,
@@ -30,6 +36,8 @@ export interface ContactsState {
 interface ContactsContextProps {
     state: ContactsState;
 
+    isProcessing: boolean;
+
     getList: Dispatch<ContactsListActionGet["payload"]>;
     sortList: Dispatch<ContactsListActionSort["payload"]>;
 
@@ -48,6 +56,8 @@ const initialState: ContactsState = {
 export const ContactsContext = createContext<ContactsContextProps>({
     state: initialState,
 
+    isProcessing: false,
+
     getList: () => undefined,
     sortList: () => undefined,
 
@@ -59,15 +69,23 @@ export const ContactsContext = createContext<ContactsContextProps>({
 
 export const ContactsProvider: FunctionComponent = ({ children }) => {
     const [state, dispatch] = useReducer(contactsReducer, initialState);
+    const [isProcessing, setIsProcessing] = useState(false);
     const [dataFetched, setDataFetched] = useState(false);
 
     useEffect(() => {
-        void getList().then(() => {
-            setDataFetched(true);
-        });
-    }, [dataFetched]);
+        if (!dataFetched && !isProcessing) {
+            setIsProcessing(true);
+
+            void getList().then(() => {
+                setDataFetched(true);
+                setIsProcessing(false);
+            });
+        }
+    }, [dataFetched, isProcessing]);
 
     async function getList() {
+        setIsProcessing(true);
+
         try {
             const { data, statusCode, message } = await getListData();
 
@@ -76,7 +94,7 @@ export const ContactsProvider: FunctionComponent = ({ children }) => {
                 console.log(message);
 
                 dispatch({
-                    type: ContactsListActions.Fetch,
+                    type: ContactsListActions.Read,
                     payload: data as ContactSchema[],
                 });
             } else {
@@ -86,16 +104,24 @@ export const ContactsProvider: FunctionComponent = ({ children }) => {
         } catch (err) {
             throw new Error(err);
         }
+
+        setIsProcessing(false);
     }
 
     function sortList(order: ContactsListActionSort["payload"]) {
+        setIsProcessing(true);
+
         dispatch({
             type: ContactsListActions.Sort,
             payload: order,
         });
+
+        setIsProcessing(false);
     }
 
     async function addContact(data: ContactActionAdd["payload"]) {
+        setIsProcessing(true);
+
         try {
             const { message, statusCode } = await addContactData(data);
             if (statusCode === StatusCodes.CREATED) {
@@ -113,10 +139,14 @@ export const ContactsProvider: FunctionComponent = ({ children }) => {
         } catch (err) {
             throw new Error(err);
         }
+
+        setIsProcessing(false);
     }
 
     // NOTE: This one is not used, so far.
     async function getContact(id: ContactActionGet["payload"]) {
+        setIsProcessing(true);
+
         try {
             const { message, statusCode } = await getContactData(id);
 
@@ -135,58 +165,66 @@ export const ContactsProvider: FunctionComponent = ({ children }) => {
         } catch (err) {
             throw new Error(err);
         }
-        dispatch({
-            type: ContactActions.Read,
-            payload: id,
-        });
+
+        setIsProcessing(false);
     }
 
     async function editContact(data: ContactActionEdit["payload"]) {
-		try {
-			const { statusCode, message } = await updateContactData(data);
+        setIsProcessing(true);
 
-			if (statusCode === StatusCodes.CREATED) {
-				// TODO: Add success feedback.
-				console.log(message);
+        try {
+            const { statusCode, message } = await updateContactData(data);
 
-				dispatch({
-					type: ContactActions.Update,
-					payload: data,
-				});
-			} else {
-				// TODO: Add error feedback.
-				console.error(message);
-			}
-		} catch (err) {
-			throw new Error(err);
-		}
+            if (statusCode === StatusCodes.CREATED) {
+                // TODO: Add success feedback.
+                console.log(message);
+
+                dispatch({
+                    type: ContactActions.Update,
+                    payload: data,
+                });
+            } else {
+                // TODO: Add error feedback.
+                console.error(message);
+            }
+        } catch (err) {
+            throw new Error(err);
+        }
+
+        setIsProcessing(false);
     }
 
     async function removeContact(id: ContactActionRemove["payload"]) {
-		try {
-			const { statusCode, message } = await deleteContactData(id);
+        setIsProcessing(true);
 
-			if (statusCode === StatusCodes.OK) {
-				// TODO: Add success feedback.
-				console.log(message);
+        try {
+            const { statusCode, message } = await deleteContactData(id);
 
-				dispatch({
-					type: ContactActions.Destroy,
-					payload: id,
-				});
-			} else {
-				// TODO: Add error feedback.
-				console.error(message);
-			}
-		} catch (err) {
-			throw new Error(err);
-		}
+            if (statusCode === StatusCodes.OK) {
+                // TODO: Add success feedback.
+                console.log(message);
+
+                dispatch({
+                    type: ContactActions.Destroy,
+                    payload: id,
+                });
+            } else {
+                // TODO: Add error feedback.
+                console.error(message);
+            }
+        } catch (err) {
+            throw new Error(err);
+        }
+
+        setIsProcessing(false);
     }
 
     return (
         <ContactsContext.Provider
             value={{
                 state,
+
+                isProcessing,
 
                 getList,
                 sortList,

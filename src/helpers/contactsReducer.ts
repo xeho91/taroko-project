@@ -2,7 +2,7 @@ import type { ContactsState } from "$helpers/ContactsContext";
 import type { ContactSchema } from "$types";
 
 export enum ContactsListActions {
-    Fetch = "GET",
+    Read = "GET",
     Sort = "SORT",
 }
 
@@ -14,7 +14,7 @@ export enum ContactActions {
 }
 
 export interface ContactsListActionGet {
-    type: ContactsListActions.Fetch;
+    type: ContactsListActions.Read;
     payload: ContactSchema[];
 }
 
@@ -63,7 +63,7 @@ function reducer(
     action: ContactAction | ContactsListAction,
 ): ContactsState {
     switch (action.type) {
-        case ContactsListActions.Fetch: {
+        case ContactsListActions.Read: {
             const list = action.payload;
 
             return {
@@ -73,8 +73,8 @@ function reducer(
         }
 
         case ContactsListActions.Sort: {
-			let sortedList: ContactSchema[];
 			const order = action.payload;
+			let sortedList: ContactSchema[];
 
 			if (order === "ascending") {
 				sortedList = state.list.sort((a, b) => {
@@ -120,13 +120,13 @@ function reducer(
             const contactId = action.payload;
             const contactData = state.list.find(({ id }) => id === contactId);
 
-            // FIXME: There has to be better handling, when contact not found.
             if (contactData) {
                 return {
                     ...state,
                     list: [contactData],
                 };
             } else {
+				// FIXME: There has to be better handling, when contact not found.
                 return state;
             }
         }
