@@ -1,0 +1,29 @@
+@use "../../styles/library" as *;
+
+.dialog {
+	position: fixed;
+	inset: 0;
+	z-index: 1;
+
+	@include flex(column);
+
+
+	background-color: var(--color-overlay);
+
+	& > .container {
+		padding: 1rem;
+
+		color: var(--color_active-fg);
+
+		background-color: var(--color_active-bg);
+		border-radius: 0.25rem;
+		box-shadow: var(--box-shadow);
+
+		& > .buttons {
+			width: 100%;
+			margin: 0 auto;
+		}
+	}
+
+}
+

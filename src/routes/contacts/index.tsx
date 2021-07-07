@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 
 import { FunctionComponent } from "react";
 
-const Home: FunctionComponent = () => {
+const Contacts: FunctionComponent = () => {
     return (
         <Fragment>
             <h1>Contacts</h1>
@@ -13,4 +13,4 @@ const Home: FunctionComponent = () => {
     );
 };
 
-export default Home;
+export default Contacts;

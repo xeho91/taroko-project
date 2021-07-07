@@ -6,7 +6,7 @@ import { ContactsContext } from "$helpers/ContactsContext";
 import type { FormEvent, FunctionComponent } from "react";
 import type { RouteComponentProps } from "react-router-dom";
 
-const AddContact: FunctionComponent<RouteComponentProps> = () => {
+const AddContact: FunctionComponent = () => {
     const history = useHistory();
 
 	const { addContact } = useContext(ContactsContext);

@@ -1,11 +1,9 @@
 import { ContactsProvider } from "$helpers/ContactsContext";
 import { Header } from "$components";
-import { AddContact, Contacts, EditContact, ViewContact, Fallback } from "$routes";
+import { AddContact, Contacts, EditContact, Fallback, ViewContact } from "$routes";
 import React, { StrictMode } from "react";
 import { render } from "react-dom";
-import { BrowserRouter } from "react-router-dom";
-import { Route, Switch } from "react-router-dom";
-
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./global.scss";
 
 render(
@@ -16,12 +14,12 @@ render(
 
                 <main>
                     <Switch>
-                        <Route path="/" component={Contacts} exact />
-                        <Route path="/add" component={AddContact} exact />
-                        <Route path="/edit/:id" component={EditContact} exact />
-                        <Route path="/view/:id" component={ViewContact} exact />
+                        <Route path="/" exact component={Contacts} />
+                        <Route path="/add" component={AddContact} />
+                        <Route path="/edit/:id" component={EditContact} />
+                        <Route path="/view/:id" component={ViewContact} />
 
-                        <Route path="*" component={Fallback} exact />
+                        <Route path="*" component={Fallback} />
                     </Switch>
                 </main>
             </ContactsProvider>

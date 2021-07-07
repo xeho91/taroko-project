@@ -23,9 +23,11 @@
 	text-align: center;
 	text-decoration: none;
 	white-space: nowrap;
-	@include border;
+	user-select: none;
 
+	@include border;
 	box-shadow: var(--box-shadow);
+
 
 	@media screen and (prefers-reduced-motion: no-preference) {
 		transition:
@@ -54,6 +56,16 @@
 		color: var(--color_destroy-fg);
 		background-color: var(--color_destroy-bg);
 		border-color: var(--color_destroy-bg);
+	}
+	&.confirm {
+		color: var(--color_confirm-fg);
+		background-color: var(--color_confirm-bg);
+		border-color: var(--color_confirm-bg);
+	}
+	&.deny {
+		color: var(--color_deny-fg);
+		background-color: var(--color_deny-bg);
+		border-color: var(--color_deny-bg);
 	}
 	&.default {
 		color: var(--color_active-fg);

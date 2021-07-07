@@ -10,6 +10,8 @@
 
 	--color-shadow: hsla(var(--kilamanjaro_HSL), 0.75);
 
+	--color-overlay: hsla(var(--clairvoyant_HSL), 0.85);
+
 	/* CRUD */
 	--color_create-fg: var(--color-pampas);
 	--color_create-bg: var(--color-woodland);
@@ -35,6 +37,13 @@
 
 	--color_warning-fg: var(--color-background);
 	--color_warning-bg: var(--color-pizza);
+
+	/* Toggle */
+	--color_confirm-fg: var(--color-pampas);
+	--color_confirm-bg: var(--color-woodland);
+
+	--color_deny-fg: var(--color-pampas);
+	--color_deny-bg: var(--color-cardinal);
 
 	/* States */
 	--color_disabled-fg: hsla(var(--calico_HSL), 0.77);

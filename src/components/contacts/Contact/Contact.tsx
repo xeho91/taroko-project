@@ -1,10 +1,11 @@
+import { ContactsContext } from "$helpers/ContactsContext";
 import { Icon } from "@iconify/react";
 import personBoundingBox from "@iconify-icons/bi/person-bounding-box";
+import ConfirmDialog from "src/components/ConfirmDialog/ConfirmDialog";
 import { Button, ButtonLink } from "$components";
-import { ContactsContext } from "$helpers/ContactsContext";
 import React, { useContext, useState } from "react";
-import styles from "./Contact.module.scss";
 import { useHistory } from "react-router-dom";
+import styles from "./Contact.module.scss";
 
 import type { ContactSchema } from "$types";
 import type { FunctionComponent } from "react";
@@ -12,77 +13,86 @@ import type { FunctionComponent } from "react";
 type ContactProps = ContactSchema;
 
 const ContactItem: FunctionComponent<ContactProps> = (props) => {
-	const history = useHistory();
     const { id, first_name, last_name, job, description } = props;
-	const isViewMode = window.location.pathname.includes("/view");
-	const [isPressed, setIsPressed] = useState(false);
 
     const { isProcessing, removeContact } = useContext(ContactsContext);
+    const [showContact, setShowContact] = useState(true);
+    const [isDeletePressed, setIsDeletePressed] = useState(false);
 
-    function deleteContact() {
-        removeContact(id);
-		setIsPressed(true);
+    const history = useHistory();
+    const isViewMode = window.location.pathname.includes("/view");
 
-		if (isViewMode) {
-			history.push("/");
-		} else {
-			if (document.activeElement instanceof HTMLButtonElement) {
-				document.activeElement.blur();
-			}
-		}
+    if (showContact) {
+        return (
+            <div
+                className={styles.contactBox}
+                aria-expanded={isViewMode}
+            >
+                <Icon icon={personBoundingBox} className={styles.profile} />
+
+                <div className={styles.details}>
+                    <p className={styles.name}>
+                        <span className={styles.contactId}>{id}</span>
+                        <span className={styles.firstName}>{first_name}</span>
+                        <span className={styles.lastName}>{last_name}</span>
+                    </p>
+
+                    <p className={styles.job}>{job}</p>
+
+                    <p className={styles.description}>{description}</p>
+                </div>
+
+                <div className={styles.buttons}>
+                    {isViewMode
+                        ? <ButtonLink
+                            to="/"
+                            label="Return"
+                            title="Return to contact list"
+                        />
+                        : <ButtonLink
+                            to={`/view/${id}`}
+                            label="View"
+                            title="View this contact"
+                            color="receive"
+                        />}
+
+                    <ButtonLink
+                        to={`/edit/${id}`}
+                        title="Edit this contact"
+                        label="Edit"
+                        color="update"
+                    />
+
+                    <Button
+                        label="Delete"
+                        title="Delete this contact"
+                        onClick={() => setIsDeletePressed(true)}
+                        color="destroy"
+                        disabled={isDeletePressed && isProcessing}
+                    />
+                </div>
+
+                {isDeletePressed
+                    ? (
+                        <ConfirmDialog
+                            message="Are you sure you want to delete this contact?"
+                            onConfirm={() => {
+                                removeContact(id);
+                                setShowContact(false);
+
+                                if (isViewMode) {
+                                    history.push("/");
+                                }
+                            }}
+                            onDeny={() => setIsDeletePressed(false)}
+                        />
+                    )
+                    : null}
+            </div>
+        );
+    } else {
+        return null;
     }
-
-    return (
-        <div
-			className={styles.contactBox}
-			aria-expanded={isViewMode}
-		>
-			<Icon icon={personBoundingBox} className={styles.profile} />
-
-            <div className={styles.details}>
-                <p className={styles.name}>
-                    <span className={styles.contactId}>{id}</span>
-                    <span className={styles.firstName}>{first_name}</span>
-                    <span className={styles.lastName}>{last_name}</span>
-                </p>
-
-                <p className={styles.job}>{job}</p>
-
-                <p className={styles.description}>{description}</p>
-            </div>
-
-            <div className={styles.buttons}>
-				{isViewMode
-					? <ButtonLink
-						to="/"
-						label="Return"
-						title="Return to contact list"
-					/>
-					: <ButtonLink
-						to={`/view/${id}`}
-						label="View"
-						title="View this contact"
-						color="receive"
-					/>
-				}
-
-                <ButtonLink
-                    to={`/edit/${id}`}
-                    title="Edit this contact"
-                    label="Edit"
-					color="update"
-                />
-
-                <Button
-                    label="Delete"
-                    title="Delete this contact"
-                    onClick={deleteContact}
-					color="destroy"
-					disabled={isPressed && isProcessing}
-                />
-            </div>
-        </div>
-    );
 };
 
 export default ContactItem;
