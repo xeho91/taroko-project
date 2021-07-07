@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import personBoundingBox from "@iconify-icons/bi/person-bounding-box";
 import { Button, ButtonLink } from "$components";
 import { ContactsContext } from "$helpers/ContactsContext";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./Contact.module.scss";
 import { useHistory } from "react-router-dom";
 
@@ -15,14 +15,20 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
 	const history = useHistory();
     const { id, first_name, last_name, job, description } = props;
 	const isViewMode = window.location.pathname.includes("/view");
+	const [isPressed, setIsPressed] = useState(false);
 
     const { removeContact } = useContext(ContactsContext);
 
     function deleteContact() {
         removeContact(id);
+		setIsPressed(true);
 
 		if (isViewMode) {
 			history.push("/");
+		} else {
+			if (document.activeElement instanceof HTMLButtonElement) {
+				document.activeElement.blur();
+			}
 		}
     }
 
@@ -72,6 +78,7 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
                     title="Delete this contact"
                     onClick={deleteContact}
 					color="destroy"
+					disabled={isPressed}
                 />
             </div>
         </div>

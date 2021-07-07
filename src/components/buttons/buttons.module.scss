@@ -60,6 +60,11 @@
 		background-color: var(--color_active-bg);
 		border-color: var(--color_active-bg);
 	}
+	&[disabled] {
+		color: var(--color_disabled-fg);
+		background-color: var(--color_disabled-bg);
+		border-color: var(--color_disabled-bg);
+	}
 	// States
 	&[aria-pressed="false"] {
 		color: var(--color_inactive-fg);
