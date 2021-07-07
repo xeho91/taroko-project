@@ -5,7 +5,10 @@
 @import "../node_modules/modern-normalize/modern-normalize";
 
 @import "./styles/colors.scss";
-@import "./styles/miscelaneous.scss";
+@import "./styles/borders.scss";
+@import "./styles/outlines.scss";
+@import "./styles/shadows.scss";
+@import "./styles/transitions.scss";
 @import "./styles/layout.scss";
 
 
@@ -21,24 +24,33 @@ body {
 		"header"
 		"content";
 	grid-template-rows: var(--header-height) var(--content-height);
+	place-content: center;
 
 	@include size(100%);
 
 	background: linear-gradient(180deg, var(--gradient));
+
+	& > * {
+		max-width: var(--content-max-width);
+	}
 
 	& > main {
 		position: relative;
 
 		grid-area: content;
 
-		padding: 1.5rem var(--content-padding);
+		padding: var(--content-padding-y) var(--content-padding-x);
 		overflow-y: auto;
 		scroll-behavior: smooth;
 
-		& > h1 {
-			margin: 0 0 2rem;
-
+		& > h1,
+		& > p {
 			color: var(--color-foreground);
+		}
+
+		& > h1 {
+			margin: 0 0 calc(var(--content-padding-y) / 2);
+
 			text-align: center;
 			text-shadow: var(--text-shadow);
 		}

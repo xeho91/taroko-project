@@ -1,0 +1,7 @@
+:root {
+	--border-width: 2px;
+	--border-style: solid;
+	--color-border: var(--color-calico);
+
+	--border: var(--border-width) var(--border-style) var(--color-border);
+}

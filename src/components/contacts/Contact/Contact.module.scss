@@ -1,53 +1,15 @@
 @use "../../../styles/library" as *;
 
 .contactBox {
-	--box-height: 12em;
 	--box-gap: 0.5rem;
-
-	&[aria-expanded="false"] {
-		--box-height: 12em;
-
-		@include flex(row);
-
-
-		& .profile {
-			@media screen and (max-width: 50ch) {
-				display: none;
-			}
-		}
-
-		& .description {
-			width: 20ch;
-			overflow: hidden;
-
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-
-		& .buttons {
-			@include flex(column);
-		}
-	}
-	&[aria-expanded="true"] {
-		--box-height: 100%;
-
-		@include flex(column);
-
-		max-width: 120ch;
-		margin: 0 auto;
-
-		& .buttons {
-			@include flex(row, center, flex-end);
-		}
-	}
 
 	position: relative;
 
-	@include flex(row);
+	display: flex;
 	gap: var(--box-gap);
 
-	width: min(80ch, 95vw);
-	height: var(--box-height);
+	min-width: 0;
+	height: 100%;
 	padding: var(--box-gap);
 
 	color: var(--color-foreground-alt);
@@ -57,44 +19,56 @@
 	box-shadow: var(--box-shadow);
 
 	& .profile {
-		--min-profile-size: 6em;
+		--profile-size: min(6rem, 15vw);
 
-		min-width: var(--min-profile-size);
-		min-height: var(--min-profile-size);
+		flex-shrink: 0;
+		place-self: center;
 
-		& > svg {
-			@include size(100%);
-		}
+		@include size(var(--profile-size));
 
-		/* @media screen and (max-width: 40ch) { */
-		/* 	display: none; */
-		/* } */
 	}
 
 	& .details {
 		@include flex(column, center, flex-start);
 
-		@include size(100%);
+		min-width: 0;
 
 		& > p {
+			width: 100%;
 			margin: var(--box-gap);
 
 			&.name {
-				@include flex(row, flex-start);
-				gap: 0.25ch;
-				line-height: 1em;
+				--id-size: 1.5rem;
+
+				position: relative;
+
+				display: flex;
+
+				@media screen and (max-width: 50ch) {
+					flex-direction: column;
+				}
 
 				& > .contactId {
-					@include flex(row);
+					position: absolute;
+					top: 0;
+					left: 0;
 
-					@include size(1.5rem);
+					@include flex(column);
+
+					@include size(var(--id-size));
 
 					font-size: smaller;
 					text-align: center;
+					user-select: none;
 
 					background-color: var(--color-background);
+					border-radius: 50%;
 				}
 				& > .firstName {
+					--spacing: 0.5ch;
+
+					margin-right: var(--spacing);
+					margin-left: calc(var(--id-size) + var(--spacing));
 					font-size: larger;
 					text-transform: uppercase;
 				}
@@ -111,12 +85,41 @@
 			&.description {
 				font-size: smaller;
 			}
+
 		}
 	}
 
-	.buttons {
-		@include flex(column, flex-start);
+	& .buttons {
+		display: flex;
+	}
 
-		height: 100%;
+	&[aria-expanded="false"] {
+		flex-direction: row;
+
+		& > .details {
+			& > .name > .firstName,
+			& > .name > .lastName,
+			& > .job,
+			& > .description {
+				overflow: hidden;
+
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
+
+		& > .buttons {
+			flex-direction: column;
+		}
+	}
+	&[aria-expanded="true"] {
+		flex-direction: column;
+
+		& > .buttons {
+			flex-direction: row;
+
+			margin: auto auto 0;
+		}
+
 	}
 }

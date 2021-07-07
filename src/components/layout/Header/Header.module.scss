@@ -4,7 +4,7 @@
 	@include flex(row, space-between, center);
 
 	height: var(--header-height);
-	padding: 0 var(--content-padding);
+	padding: 1.5rem var(--content-padding-x);
 
 	background-color: var(--color-background);
 }

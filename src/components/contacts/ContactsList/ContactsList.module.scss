@@ -3,7 +3,7 @@
 .contactsList {
 	@include flex(row);
 	flex-wrap: wrap;
-	gap: 2em;
+	gap: 1em;
 
 	padding: 0;
 	margin: 0;
@@ -12,11 +12,19 @@
 	list-style: none;
 
 	& > li {
-		flex: 1 1 calc(50% - (var(--content-padding) * 2));
+		flex: 1 1 50ch;
 
 		@include flex(row);
 
 		width: 100%;
+		max-width: calc(
+			(var(--content-max-width) / 2) - (var(--content-padding-y) * 2)
+		);
 	}
 }
 
+:global(#btn-sort-list) {
+	position: absolute;
+	top: calc(var(--content-padding-y) / 2);
+	right: var(--content-padding-x);
+}

@@ -22,23 +22,25 @@
 	border-width: var(--border-width);
 }
 
-/* stylelint-disable a11y/selector-pseudo-class-focus */
 @mixin hover {
+	/* stylelint-disable a11y/selector-pseudo-class-focus */
 	&:hover {
 		color: var(--color_hovered-fg);
 		background-color: var(--color_hovered-bg);
 		border-color: var(--color_hovered-bg);
 		@content;
 	}
+	/* stylelint-enable a11y/selector-pseudo-class-focus */
 }
 
 @mixin focus() {
+	/* stylelint-disable a11y/selector-pseudo-class-focus */
 	&:focus {
 		color: var(--color_focused-fg);
 		background-color: var(--color_focused-bg);
 		border-color: var(--color_focused-bg);
 		@content;
 	}
+	/* stylelint-enable a11y/selector-pseudo-class-focus */
 }
-/* stylelint-enable a11y/selector-pseudo-class-focus */
 
