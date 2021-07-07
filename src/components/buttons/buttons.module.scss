@@ -1,0 +1,72 @@
+@use "../../styles/library" as *;
+
+.button,
+.buttonLink,
+.buttonIcon {
+	margin: 0.5rem;
+
+	text-align: center;
+	text-decoration: none;
+	white-space: nowrap;
+	@include border;
+
+	box-shadow: var(--box-shadow);
+
+	// Colors
+	&.create {
+		color: var(--color_create-fg);
+		background-color: var(--color_create-bg);
+		border-color: var(--color_create-bg);
+	}
+	&.receive {
+		color: var(--color_receive-fg);
+		background-color: var(--color_receive-bg);
+		border-color: var(--color_receive-bg);
+	}
+	&.update {
+		color: var(--color_update-fg);
+		background-color: var(--color_update-bg);
+		border-color: var(--color_update-bg);
+	}
+	&.destroy {
+		color: var(--color_destroy-fg);
+		background-color: var(--color_destroy-bg);
+		border-color: var(--color_destroy-bg);
+	}
+	&.default {
+		color: var(--color_active-fg);
+		background-color: var(--color_active-bg);
+		border-color: var(--color_active-bg);
+	}
+	// States
+	&[aria-pressed="false"] {
+		color: var(--color_inactive-fg);
+		background-color: var(--color_inactive-bg);
+		border-color: var(--color_inactive-bg);
+	}
+
+	@include focus;
+	@include hover;
+
+	@media (prefers-reduced-motion: no-preference) {
+		transition:
+			color var(--transition),
+			background-color var(--transition),
+			border-color var(--transition);
+	}
+}
+
+.button,
+.buttonLink {
+	min-width: 10ch;
+	padding: 0.5rem 1rem;
+
+	border-radius: 0.25rem;
+}
+
+.buttonIcon {
+	@include size(1.5em);
+	font-size: 1.5em;
+
+	border-radius: 50%;
+}

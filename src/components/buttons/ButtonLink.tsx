@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./buttons.module.scss";
 
-import type { FunctionComponent, LinkProps } from "$types";
+import type { FunctionComponent } from "react";
+import type { LinkProps } from "react-router-dom";
 import type { ButtonColor } from "./buttons.types";
 
 interface ButtonLinkProps extends LinkProps {

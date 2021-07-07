@@ -12,7 +12,7 @@ const Header: FunctionComponent = () => {
             <ButtonLink
 				to="/add"
 				label="Add contact"
-				color="green"
+				color="create"
 			/>
         </header>
     );

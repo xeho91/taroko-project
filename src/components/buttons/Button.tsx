@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./buttons.module.scss";
 
-import type { ButtonHTMLAttributes, FunctionComponent } from "$types";
+import type { ButtonHTMLAttributes, FunctionComponent } from "react";
 import type { ButtonColor } from "./buttons.types";
 
 interface ButtonProps

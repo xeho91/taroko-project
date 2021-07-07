@@ -1,12 +1,8 @@
 import React, { Fragment } from "react";
 import styles from "./ContactEditor.module.scss";
 
-import type {
-    ChangeEvent,
-    ContactSchema,
-    FormEvent,
-    FunctionComponent,
-} from "$types";
+import type { ContactSchema } from "$types";
+import type { ChangeEvent, FormEvent, FunctionComponent } from "react";
 
 // FIXME:
 // This is too verbose.

@@ -2,13 +2,9 @@ import { InlineIcon } from "@iconify/react";
 import React from "react";
 import styles from "./buttons.module.scss";
 
-import type {
-    ButtonHTMLAttributes,
-    FunctionComponent,
-    IconifyIcon,
-} from "$types";
-import type { ButtonColor } from './buttons.types';
-
+import type { IconifyIcon } from "$types";
+import type { ButtonHTMLAttributes, FunctionComponent } from "react";
+import type { ButtonColor } from "./buttons.types";
 
 interface ButtonIconProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     color?: ButtonColor;

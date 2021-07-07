@@ -1,15 +1,18 @@
 import { Icon } from "@iconify/react";
 import personBoundingBox from "@iconify-icons/bi/person-bounding-box";
 import { Button, ButtonLink } from "$components";
-import { ContactsContext } from "$context";
+import { ContactsContext } from "$helpers/ContactsContext";
 import React, { useContext } from "react";
 import styles from "./Contact.module.scss";
+import { useHistory } from "react-router-dom";
 
-import type { ContactSchema, FunctionComponent } from "$types";
+import type { ContactSchema } from "$types";
+import type { FunctionComponent } from "react";
 
 type ContactProps = ContactSchema;
 
 const ContactItem: FunctionComponent<ContactProps> = (props) => {
+	const history = useHistory();
     const { id, first_name, last_name, job, description } = props;
 	const isViewMode = window.location.pathname.includes("/view");
 
@@ -17,6 +20,10 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
 
     function deleteContact() {
         removeContact(id);
+
+		if (isViewMode) {
+			history.push("/");
+		}
     }
 
     return (
@@ -51,6 +58,7 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
 						to={`/view/${id}`}
 						label="View"
 						title="View this contact"
+						color="receive"
 					/>
 				}
 
@@ -58,14 +66,14 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
                     to={`/edit/${id}`}
                     title="Edit this contact"
                     label="Edit"
-					color="blue"
+					color="update"
                 />
 
                 <Button
                     label="Delete"
                     title="Delete this contact"
                     onClick={deleteContact}
-					color="red"
+					color="destroy"
                 />
             </div>
         </div>
