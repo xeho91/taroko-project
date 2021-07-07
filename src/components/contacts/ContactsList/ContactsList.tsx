@@ -41,6 +41,7 @@ const ContactsList: FunctionComponent = () => {
         return (
             <Fragment>
                 <ButtonIcon
+					id="btn-sort-list"
 					aria-pressed={pressed}
                     icon={icon}
                     onClick={handleSortClick}

@@ -10,7 +10,7 @@ export enum ContactActions {
     Create = "ADD",
     Read = "GET",
     Update = "EDIT",
-    Delete = "REMOVE",
+    Destroy = "REMOVE",
 }
 
 export interface ContactsListActionGet {
@@ -48,7 +48,7 @@ export interface ContactActionEdit {
 }
 
 export interface ContactActionRemove {
-    type: ContactActions.Delete;
+    type: ContactActions.Destroy;
     payload: ContactSchema["id"];
 }
 
@@ -147,7 +147,7 @@ function reducer(
             };
         }
 
-        case ContactActions.Delete: {
+        case ContactActions.Destroy: {
             const contactId = action.payload;
             const updatedList = state.list.filter(({ id }) => id !== contactId);
 

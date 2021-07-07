@@ -171,7 +171,7 @@ export const ContactsProvider: FunctionComponent = ({ children }) => {
 				console.log(message);
 
 				dispatch({
-					type: ContactActions.Delete,
+					type: ContactActions.Destroy,
 					payload: id,
 				});
 			} else {

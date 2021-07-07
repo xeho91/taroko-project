@@ -36,9 +36,7 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
             <div className={styles.details}>
                 <p className={styles.name}>
                     <span className={styles.contactId}>{id}</span>
-                    &nbsp;
                     <span className={styles.firstName}>{first_name}</span>
-                    &nbsp;
                     <span className={styles.lastName}>{last_name}</span>
                 </p>
 
