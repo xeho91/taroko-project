@@ -1,5 +1,5 @@
 import { Header } from "$components";
-import { ContactsProvider } from "$context";
+import { ContactsProvider } from "$helpers/ContactsContext";
 import { AddContact, EditContact, Home, ViewContact } from "$routes";
 import React, { StrictMode } from "react";
 import { render } from "react-dom";

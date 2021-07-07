@@ -40,13 +40,10 @@
     "baseUrl": ".",
     "paths": {
       "$components": ["./src/components/index.ts"],
-      "$components/*": ["./src/components/*"],
-      "$context": ["./src/context.tsx"],
-      "$styles/*": ["./src/styles/*"],
-      "$types": ["./src/types.ts"],
-      "$reducer": ["./src/reducer.tsx"],
+      "$helpers/*": ["./src/helpers/*"],
       "$routes": ["./src/routes/index.ts"],
-      "$routes/*": ["./src/routes/*"]
+      "$styles/*": ["./src/styles/*"],
+      "$types": ["./src/types.ts"]
     }
   },
 

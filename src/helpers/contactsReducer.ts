@@ -1,11 +1,31 @@
-import { ContactSchema, ContactsState } from "$types";
+import type { ContactsState } from "$helpers/ContactsContext";
+import type { ContactSchema } from "$types";
 
-export enum ContactActionType {
-    Create = "ADD CONTACT",
-    Retrieve = "GET CONTACT",
-    Update = "EDIT CONTACT",
-    Delete = "REMOVE CONTACT",
+export enum ContactsListActions {
+    Fetch = "GET",
+    Sort = "SORT",
 }
+
+export enum ContactActions {
+    Create = "ADD",
+    Read = "GET",
+    Update = "EDIT",
+    Delete = "REMOVE",
+}
+
+export interface ContactsListActionGet {
+    type: ContactsListActions.Fetch;
+    payload: ContactSchema[];
+}
+
+export interface ContactsListActionSort {
+    type: ContactsListActions.Sort;
+    payload: ContactsState["sortOrder"];
+}
+
+type ContactsListAction =
+    | ContactsListActionGet
+    | ContactsListActionSort;
 
 // TODO:
 // Not a TypeScript pro yet,
@@ -13,22 +33,22 @@ export enum ContactActionType {
 // With "mapping" and generics?
 // Need to do research.
 export interface ContactActionAdd {
-    type: ContactActionType.Create;
+    type: ContactActions.Create;
     payload: Omit<ContactSchema, "id">;
 }
 
 export interface ContactActionGet {
-    type: ContactActionType.Retrieve;
+    type: ContactActions.Read;
     payload: ContactSchema["id"];
 }
 
 export interface ContactActionEdit {
-    type: ContactActionType.Update;
+    type: ContactActions.Update;
     payload: ContactSchema;
 }
 
 export interface ContactActionRemove {
-    type: ContactActionType.Delete;
+    type: ContactActions.Delete;
     payload: ContactSchema["id"];
 }
 
@@ -38,36 +58,52 @@ type ContactAction =
     | ContactActionEdit
     | ContactActionRemove;
 
-export enum ListActionType {
-	Retrieve = "GET LIST",
-    Sort = "SORT LIST",
-}
-
-export interface ListActionGet {
-    type: ListActionType.Retrieve;
-	payload: ContactSchema[];
-}
-
-export interface ListActionSort {
-    type: ListActionType.Sort;
-}
-
-type ListAction = ListActionGet | ListActionSort;
-
 function reducer(
     state: ContactsState,
-    action: ContactAction | ListAction,
+    action: ContactAction | ContactsListAction,
 ): ContactsState {
     switch (action.type) {
-        case ContactActionType.Create: {
-			let id: number;
+        case ContactsListActions.Fetch: {
+            const list = action.payload;
 
-			if (state.deletedIds.length > 0) {
-				id = state.deletedIds[0];
-				state.deletedIds.shift();
+            return {
+                ...state,
+                list,
+            };
+        }
+
+        case ContactsListActions.Sort: {
+			let sortedList: ContactSchema[];
+			const order = action.payload;
+
+			if (order === "ascending") {
+				sortedList = state.list.sort((a, b) => {
+					return a.first_name.localeCompare(b.first_name);
+				});
+			} else if (order === "descending") {
+				sortedList = state.list.sort((a, b) => {
+					return b.first_name.localeCompare(a.first_name);
+				});
 			} else {
-				id = state.list.length + 1;
+				sortedList = state.list;
 			}
+
+            return {
+                ...state,
+                list: sortedList,
+				sortOrder: order,
+            };
+        }
+
+        case ContactActions.Create: {
+            let id: number;
+
+            if (state.deletedIds.length > 0) {
+                id = state.deletedIds[0];
+                state.deletedIds.shift();
+            } else {
+                id = state.list.length + 1;
+            }
 
             const newContact = {
                 id,
@@ -80,14 +116,14 @@ function reducer(
             };
         }
 
-        case ContactActionType.Retrieve: {
+        case ContactActions.Read: {
             const contactId = action.payload;
             const contactData = state.list.find(({ id }) => id === contactId);
 
             // FIXME: There has to be better handling, when contact not found.
             if (contactData) {
                 return {
-					...state,
+                    ...state,
                     list: [contactData],
                 };
             } else {
@@ -95,7 +131,7 @@ function reducer(
             }
         }
 
-        case ContactActionType.Update: {
+        case ContactActions.Update: {
             const updatedContact = action.payload;
             const updatedList = state.list.map((contact) => {
                 if (contact.id === updatedContact.id) {
@@ -111,37 +147,17 @@ function reducer(
             };
         }
 
-        case ContactActionType.Delete: {
+        case ContactActions.Delete: {
             const contactId = action.payload;
             const updatedList = state.list.filter(({ id }) => id !== contactId);
 
-			state.deletedIds.push(contactId);
+            state.deletedIds.push(contactId);
 
             return {
                 ...state,
                 list: updatedList,
             };
         }
-
-		case ListActionType.Retrieve: {
-			const list = action.payload;
-
-			return {
-				...state,
-				list,
-			};
-		}
-
-		case ListActionType.Sort: {
-			const sortedList = state.list.sort((a, b) => {
-				return a.first_name.localeCompare(b.first_name);
-			});
-
-			return {
-				...state,
-				list: sortedList,
-			}
-		}
 
         default:
             return state;
