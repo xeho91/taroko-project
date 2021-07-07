@@ -9,7 +9,7 @@ const Nav: FunctionComponent = () => {
 		<nav className={styles.nav}>
 			<ul>
 				<li>
-					<NavLink to="/contacts" title={`Go to home page`}>
+					<NavLink to="/" title={`Go to home page`}>
 						Contact List
 					</NavLink>
 				</li>

@@ -4,11 +4,14 @@ import { ButtonIcon, Contact } from "$components";
 import { ContactsContext } from "$helpers/ContactsContext";
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import styles from "./ContactsList.module.scss";
+import randomData from "./randomData.json";
 
 import type { FunctionComponent } from "react";
+import { Button } from "src/components/buttons";
+import { ContactSchema } from "$types";
 
 const ContactsList: FunctionComponent = () => {
-    const { state, sortList } = useContext(ContactsContext);
+    const { state, sortList, addContact } = useContext(ContactsContext);
     const [renderedList, setRenderedList] = useState(state.list);
 	const [pressed, setPressed] = useState(false);
 
@@ -18,12 +21,20 @@ const ContactsList: FunctionComponent = () => {
         setRenderedList([...state.list]);
     }, [state]);
 
-	function handleClick() {
+	function handleSortClick() {
 		if (!pressed) {
 			setPressed(true);
 		}
 
 		sortList(state.sortOrder === "ascending" ? "descending" : "ascending");
+	}
+
+	function handleGenerateClick() {
+		const contacts = randomData.contacts as ContactSchema[];
+
+		contacts.forEach((item) => {
+			addContact(item);
+		});
 	}
 
     if (renderedList.length > 0) {
@@ -32,7 +43,7 @@ const ContactsList: FunctionComponent = () => {
                 <ButtonIcon
 					aria-pressed={pressed}
                     icon={icon}
-                    onClick={handleClick}
+                    onClick={handleSortClick}
                     title={`Sort by first name in ${state.sortOrder} order`}
                 />
 
@@ -48,7 +59,18 @@ const ContactsList: FunctionComponent = () => {
             </Fragment>
         );
     } else {
-        return <p>No data.</p>;
+        return (
+			<Fragment>
+				<p>The list is empty. Consider adding a <a href="#btn-add-contact">new contact</a> or <a href="#btn-generate-contacts">generate a random data</a>.</p>
+
+				<Button
+					id="btn-generate-contacts"
+					label="Generate random data"
+					onClick={handleGenerateClick}
+					title="Generate a random list of contacts data"
+				/>
+			</Fragment>
+		);
     }
 };
 

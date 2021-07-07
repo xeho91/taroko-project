@@ -1,0 +1,74 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "first_name": "Anakin",
+      "last_name": "Skywalker",
+      "job": "Jedi Knight",
+      "description": "Anakin Skywalker was a legendary human male Jedi Knight of the Galactic Republic and the prophesied Chosen One of the Jedi Order, destined to bring balance to the Force. Also known as Ani during his childhood, Skywalker earned the moniker Hero With No Fear from his accomplishments in the Clone Wars. His alter ego, Darth Vader, the Dark Lord of the Sith, was created when Skywalker turned to the dark side of the Force, pledging his allegiance to the Sith Lord Darth Sidious at the end of the Republic Era."
+    },
+    {
+      "id": 2,
+      "first_name": "Luke",
+      "last_name": "Skywalker",
+      "job": "Jedi Master",
+      "description": "Luke Skywalker, a Force-sensitive human male, was a legendary Jedi Master who fought in the Galactic Civil War during the reign of the Galactic Empire. Along with his companions, Princess Leia Organa and General Han Solo, Skywalker served on the side of the Alliance to Restore the Republic—an organization committed to the downfall of the Galactic Empire and the restoration of democracy. Following the war, Skywalker became a living legend, and was remembered as one of the greatest Jedi in galactic history."
+    },
+    {
+      "id": 3,
+      "first_name": "Han",
+      "last_name": "Solo",
+      "job": "Smuggler",
+      "description": "Han Solo, known only as Han until being given the surname Solo by an Imperial recruitment officer, and formerly known as Cadet 124-329 while serving as an Imperial cadet, was a human male smuggler. He became a leader in the Alliance to Restore the Republic and an instrumental figure in the defeat of the Galactic Empire during the Galactic Civil War. He hailed from Corellia and became a smuggler, even completing the Kessel Run in just twelve parsecs with his prized ship, the Millennium Falcon, and coming under the employ of Jabba the Hutt. He was the son-in-law of fallen Jedi Knight Anakin Skywalker and Senator Padmé Amidala, husband of Princess Leia Organa, brother-in-law of Jedi Master Luke Skywalker, father of Ben Solo, rivals and close friends with fellow smuggler Lando Calrissian, and best friends with the Wookiee Chewbacca, his trusted copilot who swore a life debt to the Corellian smuggler. Solo ran afoul of Jabba after ditching a shipment of spice to avoid trouble with the Empire, owing the Hutt a great deal of money as a result. His fortune seemed to have changed when he agreed to charter Luke Skywalker, Obi-Wan Kenobi, and the droids R2-D2 and C-3PO to Alderaan, but he became caught up in the rebellion against the Empire and, after helping Princess Leia Organa escape from the Death Star, briefly fought in the Battle of Yavin, which allowed Skywalker to destroy the superweapon. Solo fought with the Rebellion for a number of years afterward, taking part in numerous operations and battles against the Empire."
+    },
+    {
+      "id": 4,
+      "first_name": "Ben",
+      "last_name": "Solo",
+      "job": "Sith / Jedi Knight",
+      "description": "Ben Solo was a human male Jedi who returned to the light side of the Force by renouncing the dark side. His alter ego, Kylo Ren, was the master of the Knights of Ren and Supreme Leader of the First Order. A product of Jedi and Sith teachings, Ren embodied the conflict between the dark side and the light, making the young Force warrior dangerously unstable. Yet it was through discord that he derived power, and he learned to channel his anger into strength. Inspired by the legacy of his grandfather, the Sith Lord Darth Vader, Ren sought to destroy the last remnants of the Jedi Order and conquer the galaxy."
+    },
+    {
+      "id": 5,
+      "first_name": "Sheev",
+      "last_name": "Palpatine",
+      "job": "Lord Sith",
+      "description": "Darth Sidious, born Sheev Palpatine and also known simply as the Emperor, was a human male Dark Lord of the Sith and Emperor of the Galactic Empire, ruling from 19 BBY to 4 ABY. Rising to power in the Republic Senate as the senator of Naboo, the secretive Sith Lord cultivated two identities, Sidious and Palpatine, using both to further his political career. He orchestrated the fall of the Galactic Republic and the Jedi Order through the Clone Wars, and then established his reign over the galaxy which lasted until his death at the Battle of Endor. However, the dark side of the Force gave rise to powers which allowed the Emperor to return from the grave."
+    },
+    {
+      "id": 6,
+      "first_name": "Rey",
+      "last_name": "Skywalker",
+      "job": "Jedi Master",
+      "description": "Rey Skywalker, once known only as Rey, was a human female Jedi Master who fought on the side of the Resistance in the war against the First Order. A former scavenger from the planet Jakku, her life was changed by the tumultuous events of the last days of the New Republic Era. Her decision to help the droid BB-8 would set Rey on a course to discovering the Force that awakened within her, leading her to seek out Jedi Master Luke Skywalker for training. Yet despite her commitment to the Jedi Order and the light side of the Force, Rey felt the pull to the dark side due to her anger and the adversarial relationship she had with Ben Solo, a fallen Jedi whom she knew as the dark warrior Kylo Ren. The unique Force-bond between them was a result of their nature as a dyad in the Force."
+    },
+    {
+      "id": 7,
+      "first_name": "Yoda",
+      "last_name": "Name His Must You Know Not",
+      "job": "Jedi Grand Master",
+      "description": "Yoda, a Force-sensitive male being belonging to a mysterious species, was a legendary Jedi Master who witnessed the rise and fall of the Galactic Republic, followed by the rise of the Galactic Empire. Small in stature but revered for his wisdom and power, Yoda trained generations of Jedi, ultimately serving as the Grand Master of the Jedi Order. Having lived through nine centuries of galactic history, he played integral roles in the Clone Wars, the rebirth of the Jedi through Luke Skywalker, and unlocking the path to immortality."
+    },
+    {
+      "id": 8,
+      "first_name": "Obi-Wan",
+      "last_name": "Kenobi",
+      "job": "Jedi Master",
+      "description": "Obi-Wan Kenobi, also known as Ben Kenobi, was a human male Jedi Master who served on the Jedi High Council during the final years of the Republic Era. As a Jedi General, Kenobi served in the Grand Army of the Republic that fought against the Separatist Droid Army during the Clone Wars. Kenobi, however, was forced into exile as a result of the Great Jedi Purge. As a mentor, Kenobi was responsible for training two members of the Skywalker family, Anakin Skywalker and Luke Skywalker, both of whom served in turn as his Padawan in the ways of the Force."
+    },
+    {
+      "id": 9,
+      "first_name": "Qui-Gon",
+      "last_name": "Jinn",
+      "job": "Jedi Master",
+      "description": "Qui-Gon Jinn, a Force-sensitive human male, was a venerable if maverick Jedi Master who lived during the last years of the Republic Era. He was a wise and well-respected member of the Jedi Order, and was offered a seat on the Jedi Council, but chose to reject and follow his own path. Adhering to a philosophy centered around the Living Force, Jinn strove to follow the will of the Force even when his actions conflicted with the wishes of the High Council. After encountering Anakin Skywalker, Jinn brought him to the Jedi Temple on Coruscant, convinced he had found the Chosen One. His dying wish was for Skywalker to become a Jedi and ultimately restore balance to the Force."
+    },
+    {
+      "id": 10,
+      "first_name": "Grogu",
+      "last_name": "Baby Yoda",
+      "job": "Baby Jedi",
+      "description": "Grogu, known to many simply as the Child, was a male Force-sensitive Mandalorian foundling that belonged to the same species as Jedi Grand Master Yoda and Jedi Master Yaddle. Grogu was born in the year 41 BBY, and was raised at the Jedi Temple on Coruscant."
+    }
+  ]
+}

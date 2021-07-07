@@ -1,6 +1,21 @@
 @use "../../styles/library" as *;
 
 .button,
+.buttonLink {
+	min-width: 10ch;
+	padding: 0.5rem 1rem;
+
+	border-radius: 0.25rem;
+}
+
+.buttonIcon {
+	@include size(1.5em);
+	font-size: 1.5em;
+
+	border-radius: 50%;
+}
+
+.button,
 .buttonLink,
 .buttonIcon {
 	margin: 0.5rem;
@@ -11,6 +26,13 @@
 	@include border;
 
 	box-shadow: var(--box-shadow);
+
+	@media screen and (prefers-reduced-motion: no-preference) {
+		transition:
+			color var(--transition),
+			background-color var(--transition),
+			border-color var(--transition);
+	}
 
 	// Colors
 	&.create {
@@ -45,28 +67,26 @@
 		border-color: var(--color_inactive-bg);
 	}
 
-	@include focus;
 	@include hover;
+	@include focus;
 
-	@media (prefers-reduced-motion: no-preference) {
-		transition:
-			color var(--transition),
-			background-color var(--transition),
-			border-color var(--transition);
+	&:target {
+		@media screen and (prefers-reduced-motion: no-preference) {
+			animation: 1.5s ease-in-out 5 pulse;
+
+			@keyframes pulse {
+				0%, 100% {
+					box-shadow: 0 0 10px 10px var(--color_enabled-bg);
+				}
+				50% {
+					box-shadow: 0 0 2px 2px var(--color_enabled-bg);
+				}
+			}
+		}
+	}
+
+	&:not(:target) {
+		animation: none;
 	}
 }
 
-.button,
-.buttonLink {
-	min-width: 10ch;
-	padding: 0.5rem 1rem;
-
-	border-radius: 0.25rem;
-}
-
-.buttonIcon {
-	@include size(1.5em);
-	font-size: 1.5em;
-
-	border-radius: 50%;
-}

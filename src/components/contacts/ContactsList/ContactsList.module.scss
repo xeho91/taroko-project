@@ -14,6 +14,8 @@
 	& > li {
 		flex: 1 1 calc(50% - (var(--content-padding) * 2));
 
+		@include flex(row);
+
 		width: 100%;
 	}
 }

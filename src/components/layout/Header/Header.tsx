@@ -10,6 +10,7 @@ const Header: FunctionComponent = () => {
             <Nav />
 
             <ButtonLink
+				id="btn-add-contact"
 				to="/add"
 				label="Add contact"
 				color="create"
