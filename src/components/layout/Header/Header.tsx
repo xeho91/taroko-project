@@ -2,7 +2,7 @@ import { ButtonLink, Nav } from "$components";
 import React from "react";
 import styles from "./Header.module.scss";
 
-import type { FunctionComponent } from "$types";
+import type { FunctionComponent } from "react";
 
 const Header: FunctionComponent = () => {
     return (
