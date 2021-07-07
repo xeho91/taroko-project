@@ -24,21 +24,20 @@ body {
 		"header"
 		"content";
 	grid-template-rows: var(--header-height) var(--content-height);
+	grid-template-columns: min(100%, var(--content-max-width));
 	place-content: center;
 
 	@include size(100%);
 
 	background: linear-gradient(180deg, var(--gradient));
 
-	& > * {
-		max-width: var(--content-max-width);
-	}
-
 	& > main {
 		position: relative;
 
 		grid-area: content;
 
+		width: 100%;
+		max-width: var(--content-max-width);
 		padding: var(--content-padding-y) var(--content-padding-x);
 		overflow-y: auto;
 		scroll-behavior: smooth;

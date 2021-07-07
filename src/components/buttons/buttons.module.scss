@@ -60,20 +60,20 @@
 		background-color: var(--color_active-bg);
 		border-color: var(--color_active-bg);
 	}
-	&[disabled] {
-		color: var(--color_disabled-fg);
-		background-color: var(--color_disabled-bg);
-		border-color: var(--color_disabled-bg);
-	}
 	// States
 	&[aria-pressed="false"] {
 		color: var(--color_inactive-fg);
 		background-color: var(--color_inactive-bg);
 		border-color: var(--color_inactive-bg);
 	}
-
 	@include hover;
 	@include focus;
+	&[disabled] {
+		color: var(--color_disabled-fg);
+		background-color: var(--color_disabled-bg);
+		border-color: var(--color_disabled-bg);
+	}
+
 
 	&:target {
 		@media screen and (prefers-reduced-motion: no-preference) {
