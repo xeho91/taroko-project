@@ -24,6 +24,26 @@
 			margin: 0 auto;
 		}
 	}
-
 }
 
+.dialog-enter {
+	opacity: 0;
+}
+.dialog-enter-active {
+	opacity: 1;
+	transition: opacity var(--transition);
+}
+.dialog-exit {
+	opacity: 1;
+}
+.dialog-exit-active {
+	opacity: 0;
+	transition: opacity var(--transition);
+}
+.dialog-appear {
+  opacity: 1;
+}
+.dialog-appear-active {
+  opacity: 1;
+  transition: all 1000ms ease-out;
+}

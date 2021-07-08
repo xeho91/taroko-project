@@ -1,51 +1,58 @@
-import { ContactEditor } from "$components";
-import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { ContactsContext } from "$helpers/ContactsContext";
+import { ConfirmDialog, ContactEditor } from "$components";
+import React, { Fragment, useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 
+import { ContactSchema } from "$types";
 import type { FormEvent, FunctionComponent } from "react";
-import type { RouteComponentProps } from "react-router-dom";
+
+type ContactData = Omit<ContactSchema, "id">;
 
 const AddContact: FunctionComponent = () => {
     const history = useHistory();
 
-	const { addContact } = useContext(ContactsContext);
-
-	const [first_name, setFirstName] = useState("");
-	const [last_name, setLastName] = useState("");
-	const [job, setJob] = useState("");
-	const [description, setDescription] = useState("");
+    const { addContact } = useContext(ContactsContext);
+	const [contactData, setContactData] = useState({} as ContactData);
+    const [showConfirm, setShowConfirm] = useState(false);
 
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        const newContact = {
-            first_name,
-            last_name,
-            job,
-            description,
-        };
+        const formEl = e.target as HTMLFormElement;
+        const formData = new FormData(formEl);
 
-        addContact(newContact);
-        history.push("/");
+        setContactData({
+            first_name: formData.get("first_name") as string,
+            last_name: formData.get("last_name") as string,
+            job: formData.get("job") as string,
+            description: formData.get("description") as string,
+        });
+
+		setShowConfirm(true);
     }
 
+	function handleConfirm() {
+        addContact(contactData);
+        history.push("/");
+	}
+
     return (
-        <ContactEditor
-			onSubmit={handleSubmit}
+        <Fragment>
+            <ContactEditor
+                action="add"
+                onSubmit={handleSubmit}
+            />
 
-			firstNameValue={first_name}
-			onFirstNameChange={(e) => setFirstName(e.target.value)}
-
-			lastNameValue={last_name}
-			onLastNameChange={(e) => setLastName(e.target.value)}
-
-			jobValue={job}
-			onJobChange={(e) => setJob(e.target.value)}
-
-			descriptionValue={description}
-			onDescriptionChange={(e) => setDescription(e.target.value)}
-		/>
+            {showConfirm
+                ? (
+                    <ConfirmDialog
+                        message={`Are you sure you want to add ${contactData.first_name} ${contactData.last_name} to the list?`}
+                        onConfirm={handleConfirm}
+                        onDeny={() => setShowConfirm(false)}
+                    />
+                )
+                : null}
+        </Fragment>
     );
 };
 

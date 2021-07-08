@@ -12,13 +12,6 @@
 	border-radius: 0.5rem;
 	box-shadow: var(--box-shadow);
 
-	& > input[type="submit"] {
-		min-width: 12ch;
-		padding: 0.25rem;
-
-		border: var(--border);
-	}
-
 	&:invalid > input[type="submit"] {
 		color: var(--color_disabled-fg);
 		background-color: var(--color_disabled-bg);
@@ -59,7 +52,7 @@
 
 	& > input,
 	& > textarea {
-		background-color: var(--color_action-bg);
+		background-color: var(--color_enabled-bg);
 		border: var(--border);
 
 		&:valid:not(:focus) {
