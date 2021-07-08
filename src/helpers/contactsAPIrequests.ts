@@ -23,7 +23,7 @@ export async function getListData(): Promise<APIresponse> {
         method: "GET",
         headers,
     });
-    let response = await request.json();
+    const response = await request.json();
 
     return response as APIresponse;
 }
