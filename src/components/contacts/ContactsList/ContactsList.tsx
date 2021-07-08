@@ -2,7 +2,8 @@ import { ContactsContext } from "$helpers/ContactsContext";
 import iconSortAscending from "@iconify-icons/bi/sort-alpha-down";
 import iconSortDescending from "@iconify-icons/bi/sort-alpha-up";
 import { ButtonIcon, Contact, Loader } from "$components";
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useRef, useState } from "react";
+import { CSSTransition } from "react-transition-group";
 import styles from "./ContactsList.module.scss";
 import { contacts } from "./exampleContacts.json";
 
@@ -14,10 +15,11 @@ const ContactsList: FunctionComponent = () => {
         ContactsContext,
     );
     const [sortPressed, setSortPressed] = useState(false);
+    const contactRef = useRef(null);
 
-    const icon = state.sortOrder === "ascending"
-        ? iconSortAscending
-        : iconSortDescending;
+    const icon = state.sortOrder === "descending"
+        ? iconSortDescending
+        : iconSortAscending;
 
     function handleSortListClick() {
         if (!sortPressed) {
@@ -27,7 +29,7 @@ const ContactsList: FunctionComponent = () => {
         sortList(state.sortOrder === "ascending" ? "descending" : "ascending");
     }
 
-    function useExampleContactsClick() {
+    function handleAddExamplesClick() {
         contacts.forEach((item) => {
             addContact(item);
         });
@@ -35,7 +37,7 @@ const ContactsList: FunctionComponent = () => {
 
     if (isProcessing && state.list.length === 0) {
         return (
-            <Loader message="Please wait, fetching data from the API..." />
+			<Loader message="Please wait, fetching data from the API..." />
         );
     } else {
         if (state.list.length > 0) {
@@ -46,15 +48,35 @@ const ContactsList: FunctionComponent = () => {
                         aria-pressed={sortPressed}
                         icon={icon}
                         onClick={handleSortListClick}
-                        title={`Sort by first name in ${state.sortOrder} order`}
+                        title={`Sort by first name in ${
+                            state.sortOrder === "ascending"
+                                ? "descending"
+                                : "ascending"
+                        } order`}
                     />
 
                     <ul className={styles.contactsList}>
                         {state.list.map((contact, index) => {
                             return (
-                                <li key={index}>
-                                    <Contact {...contact} />
-                                </li>
+                                <CSSTransition
+                                    key={index}
+                                    timeout={1000}
+                                    nodeRef={contactRef}
+                                    in
+                                    appear
+                                    classNames={{
+                                        appear: styles["contact-appear"],
+                                        appearActive: styles["contact-appear-active"],
+                                        enter: styles["contact-enter"],
+                                        enterActive: styles["contact-enter-active"],
+                                        exit: styles["contact-exit"],
+                                        exitActive: styles["contact-exit-active"],
+                                    }}
+                                >
+                                    <li ref={contactRef} className={styles.contact}>
+                                        <Contact {...contact} />
+                                    </li>
+                                </CSSTransition>
                             );
                         })}
                     </ul>
@@ -75,7 +97,7 @@ const ContactsList: FunctionComponent = () => {
                     <Button
                         id="btn-use-example-contacts"
                         label="Use an example contacts data"
-                        onClick={useExampleContactsClick}
+                        onClick={handleAddExamplesClick}
                         title="Click to use an example list of contacts data"
                     />
                 </Fragment>

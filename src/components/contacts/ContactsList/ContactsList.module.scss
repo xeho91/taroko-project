@@ -11,7 +11,7 @@
 
 	list-style: none;
 
-	& > li {
+	& > .contact {
 		flex: 1 1 50ch;
 
 		@include flex(row);
@@ -20,6 +20,30 @@
 		max-width: calc(
 			(var(--content-max-width) / 2) - (var(--content-padding-y) * 2)
 		);
+
+		@media screen and (prefers-reduced-motion: no-preference) {
+			&.contact-appear {
+				opacity: 1;
+			}
+			&.contact-appear-active {
+				opacity: 0;
+				transition: opacity var(--transition);
+			}
+			&.contact-enter {
+				opacity: 0;
+			}
+			&.contact-enter-active {
+				opacity: 1;
+				transition: opacity var(--transition);
+			}
+			&.contact-exit {
+				opacity: 1;
+			}
+			&.contact-exit-active {
+				opacity: 0;
+				transition: opacity var(--transition);
+			}
+		}
 	}
 }
 

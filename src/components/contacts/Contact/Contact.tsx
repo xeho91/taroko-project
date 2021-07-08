@@ -16,7 +16,7 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
     const { id, first_name, last_name, job, description } = props;
 
     const { isProcessing, removeContact } = useContext(ContactsContext);
-    const [isDeletePressed, setIsDeletePressed] = useState(false);
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
     const history = useHistory();
     const isViewMode = window.location.pathname.includes("/view");
@@ -64,13 +64,13 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
                 <Button
                     label="Delete"
                     title="Delete this contact"
-                    onClick={() => setIsDeletePressed(true)}
+                    onClick={() => setShowDeleteConfirm(true)}
                     color="destroy"
-                    disabled={isDeletePressed && isProcessing}
+                    disabled={showDeleteConfirm && isProcessing}
                 />
             </div>
 
-            {isDeletePressed
+            {showDeleteConfirm
                 ? (
                     <ConfirmDialog
                         message={`Are you sure you want to delete ${first_name} ${last_name} contact?`}
@@ -81,7 +81,7 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
                                 history.push("/");
                             }
                         }}
-                        onDeny={() => setIsDeletePressed(false)}
+                        onDeny={() => setShowDeleteConfirm(false)}
                     />
                 )
                 : null}

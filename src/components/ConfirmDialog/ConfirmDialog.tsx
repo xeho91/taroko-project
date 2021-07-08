@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import { Button } from "../buttons";
 import styles from "./ConfirmDialog.module.scss";
@@ -14,13 +14,13 @@ interface ConfirmDialogProps {
 
 const ConfirmDialog: FunctionComponent<ConfirmDialogProps> = (props) => {
     const { message, onConfirm, onDeny, timeout } = props;
-	const nodeRef = useRef(null);
+    const nodeRef = useRef(null);
 
     const [visible, setVisible] = useState(true);
 
     useEffect(() => {
         const timer = setTimeout(() => {
-			handleDenyClick();
+            handleDenyClick();
         }, timeout);
 
         return () => clearTimeout(timer);
@@ -41,14 +41,19 @@ const ConfirmDialog: FunctionComponent<ConfirmDialogProps> = (props) => {
     if (visible) {
         return (
             <CSSTransition
-				in={visible}
-				appear
-				nodeRef={nodeRef}
-				timeout={1000}
-				classNames={styles.dialog}
-			>
+                in={visible}
+                appear
+                nodeRef={nodeRef}
+                timeout={1000}
+                classNames={{
+                    appear: styles["dialog-appear"],
+                    appearActive: styles["dialog-appear-active"],
+                    exit: styles["dialog-exit"],
+                    exitActive: styles["dialog-exit-active"],
+                }}
+            >
                 <div
-					ref={nodeRef}
+                    ref={nodeRef}
                     role="dialog"
                     aria-labelledby="confirm-dialog"
                     className={styles.dialog}
