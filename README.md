@@ -81,6 +81,17 @@ This is a repository for the assessment challenge from the Taroko company.
 
 	```
 
+   **NOTE:** You most likely will encounter a problem here.
+   One of my package with list of colors is published on GitHub npm packages
+   registry.
+   To fix it, you can for example use:
+
+   ```sh
+   pnpm config set @xeho91:registry https://npm.pkg.github.com
+   ```
+
+   Then execute install script again.
+
 3. To start the project in **development** mode, type the following command in
    your terminal:
 
@@ -91,10 +102,9 @@ This is a repository for the assessment challenge from the Taroko company.
    It will host the server on the
    [http://localhost:3000](http://localhost:3000) by default.
 
-4. For building for **production**, type `pnpm build`. You can host a preview
-   of
-   the compilation _(by [Vite])_ by using `pnpm serve`. Then, by default, go to
-   [http://localhost:5000](http://localhost:5000).
+4. For building for **production**, type `pnpm build`. You can host a preview of
+   the compilation _(by [Vite])_ by using `pnpm serve`.
+   Then, by default, go to [http://localhost:5000](http://localhost:5000).
 
 [Vite]: https://github.com/vitejs/vite
 
