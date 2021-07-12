@@ -16,10 +16,18 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
     const { id, first_name, last_name, job, description } = props;
 
     const { isProcessing, removeContact } = useContext(ContactsContext);
-    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-
+    const [showDelConfirm, setShowDelConfirm] = useState(false);
     const history = useHistory();
+
     const isViewMode = window.location.pathname.includes("/view");
+
+    function handleDeleteConfirm() {
+        removeContact(id);
+
+        if (isViewMode) {
+            history.push("/");
+        }
+    }
 
     return (
         <div
@@ -64,27 +72,18 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
                 <Button
                     label="Delete"
                     title="Delete this contact"
-                    onClick={() => setShowDeleteConfirm(true)}
+                    onClick={() => setShowDelConfirm(true)}
                     color="destroy"
-                    disabled={showDeleteConfirm && isProcessing}
+                    disabled={showDelConfirm && isProcessing}
                 />
             </div>
 
-            {showDeleteConfirm
-                ? (
-                    <ConfirmDialog
-                        message={`Are you sure you want to delete ${first_name} ${last_name} contact?`}
-                        onConfirm={() => {
-                            removeContact(id);
-
-                            if (isViewMode) {
-                                history.push("/");
-                            }
-                        }}
-                        onDeny={() => setShowDeleteConfirm(false)}
-                    />
-                )
-                : null}
+            <ConfirmDialog
+                show={showDelConfirm}
+                message={`Are you sure you want to delete ${first_name} ${last_name} contact?`}
+                onConfirm={handleDeleteConfirm}
+                onDeny={() => setShowDelConfirm(false)}
+            />
         </div>
     );
 };

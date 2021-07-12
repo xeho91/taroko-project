@@ -6,86 +6,90 @@ import styles from "./ConfirmDialog.module.scss";
 import type { FunctionComponent } from "react";
 
 interface ConfirmDialogProps {
+    show: boolean;
     message: string;
     onConfirm: () => void;
     onDeny?: () => void;
-    timeout?: number;
+    autoClose?: boolean;
+    autoCloseAfter?: number;
 }
 
 const ConfirmDialog: FunctionComponent<ConfirmDialogProps> = (props) => {
-    const { message, onConfirm, onDeny, timeout } = props;
-    const nodeRef = useRef(null);
+    const { show, message, onConfirm, onDeny, autoClose, autoCloseAfter } = props;
 
-    const [visible, setVisible] = useState(true);
+    const dialogRef = useRef(null);
+    const [isVisible, setIsVisible] = useState(show);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            handleDenyClick();
-        }, timeout);
+        if (autoClose) {
+            const timer = setTimeout(() => {
+                handleDenyClick();
+            }, autoCloseAfter);
 
-        return () => clearTimeout(timer);
+            return () => clearTimeout(timer);
+        }
     });
 
     function handleConfirmClick() {
         onConfirm();
-        setVisible(false);
+        setIsVisible(false);
     }
 
     function handleDenyClick() {
         if (onDeny) {
             onDeny();
         }
-        setVisible(false);
+
+        setIsVisible(false);
     }
 
-    if (visible) {
-        return (
-            <CSSTransition
-                in={visible}
-                appear
-                nodeRef={nodeRef}
-                timeout={1000}
-                classNames={{
-                    appear: styles["dialog-appear"],
-                    appearActive: styles["dialog-appear-active"],
-                    exit: styles["dialog-exit"],
-                    exitActive: styles["dialog-exit-active"],
-                }}
+    return (
+        <CSSTransition
+            nodeRef={dialogRef}
+            in={show}
+            unmountOnExit
+            timeout={500}
+            classNames={{
+                enter: styles["dialog-enter"],
+                enterActive: styles["dialog-enter-active"],
+
+                exit: styles["dialog-exit"],
+                exitActive: styles["dialog-exit-active"],
+            }}
+        >
+            <div
+                ref={dialogRef}
+                role="dialog"
+                aria-hidden={!isVisible}
+                aria-labelledby="confirm-dialog-title"
+                className={`${styles.dialog} ${styles.overlay}`}
             >
-                <div
-                    ref={nodeRef}
-                    role="dialog"
-                    aria-labelledby="confirm-dialog"
-                    className={styles.dialog}
-                >
-                    <div className={styles.container}>
-                        <h2 id="confirm-dialog">Confirm the action</h2>
-                        <p>{message}</p>
+                <div className={styles.container}>
+                    <h2 id="confirm-dialog-title">Confirm the action</h2>
+                    <p>{message}</p>
 
-                        <div className={styles.buttons}>
-                            <Button
-                                onClick={handleDenyClick}
-                                color="deny"
-                                label="No"
-                            />
+                    <div className={styles.buttons}>
+                        <Button
+                            onClick={handleDenyClick}
+                            color="deny"
+                            label="No"
+                        />
 
-                            <Button
-                                onClick={handleConfirmClick}
-                                color="confirm"
-                                label="Yes"
-                            />
-                        </div>
+                        <Button
+                            onClick={handleConfirmClick}
+                            color="confirm"
+                            label="Yes"
+                        />
                     </div>
                 </div>
-            </CSSTransition>
-        );
-    } else {
-        return null;
-    }
+            </div>
+        </CSSTransition>
+    );
 };
 
 ConfirmDialog.defaultProps = {
-    timeout: 5000,
+    autoClose: true,
+    autoCloseAfter: 5000,
 };
 
 export default ConfirmDialog;
