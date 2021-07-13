@@ -58,9 +58,11 @@ export const ContactsContext = createContext<ContactsContextProps>({
 
     isProcessing: false,
 
+    // List actions
     getList: () => undefined,
     sortList: () => undefined,
 
+    // Contact actions
     addContact: () => undefined,
     getContact: () => undefined,
     editContact: () => undefined,
@@ -69,19 +71,18 @@ export const ContactsContext = createContext<ContactsContextProps>({
 
 export const ContactsProvider: FunctionComponent = ({ children }) => {
     const [state, dispatch] = useReducer(contactsReducer, initialState);
+
     const [isProcessing, setIsProcessing] = useState(false);
-    const [dataFetched, setDataFetched] = useState(false);
+    const [isDataFetched, setIsDataFetched] = useState(false);
 
     useEffect(() => {
-        if (!dataFetched && !isProcessing) {
-            setIsProcessing(true);
-
-            void getList().then(() => {
-                setDataFetched(true);
-                setIsProcessing(false);
-            });
+        if (!isDataFetched) {
+            void (async function() {
+                await getList();
+                setIsDataFetched(true);
+            })();
         }
-    }, [dataFetched, isProcessing]);
+    }, [isDataFetched]);
 
     async function getList() {
         setIsProcessing(true);
