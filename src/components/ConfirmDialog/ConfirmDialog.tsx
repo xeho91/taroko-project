@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import { Button } from "../buttons";
 import styles from "./ConfirmDialog.module.scss";
@@ -18,7 +18,6 @@ const ConfirmDialog: FunctionComponent<ConfirmDialogProps> = (props) => {
     const { show, message, onConfirm, onDeny, autoClose, autoCloseAfter } = props;
 
     const dialogRef = useRef(null);
-    const [isVisible, setIsVisible] = useState(show);
 
     useEffect(() => {
         if (autoClose) {
@@ -32,15 +31,12 @@ const ConfirmDialog: FunctionComponent<ConfirmDialogProps> = (props) => {
 
     function handleConfirmClick() {
         onConfirm();
-        setIsVisible(false);
     }
 
     function handleDenyClick() {
         if (onDeny) {
             onDeny();
         }
-
-        setIsVisible(false);
     }
 
     return (
@@ -52,15 +48,17 @@ const ConfirmDialog: FunctionComponent<ConfirmDialogProps> = (props) => {
             classNames={{
                 enter: styles["dialog-enter"],
                 enterActive: styles["dialog-enter-active"],
+                enterDone: styles["dialog-enter-done"],
 
                 exit: styles["dialog-exit"],
                 exitActive: styles["dialog-exit-active"],
+                exitDone: styles["dialog-exit-done"],
             }}
         >
             <div
                 ref={dialogRef}
                 role="dialog"
-                aria-hidden={!isVisible}
+                aria-hidden={!show}
                 aria-labelledby="confirm-dialog-title"
                 className={`${styles.dialog} ${styles.overlay}`}
             >

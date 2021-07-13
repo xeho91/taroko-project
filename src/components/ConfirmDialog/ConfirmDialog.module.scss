@@ -2,7 +2,7 @@
 
 .dialog {
 	&.overlay {
-		position: fixed;
+		position: absolute;
 		inset: 0;
 		z-index: 1;
 	}
@@ -12,11 +12,12 @@
 	background-color: var(--color-overlay);
 
 	& > .container {
+		@include size(100%);
 		padding: 1rem;
 
 		color: var(--color_active-fg);
 
-		background-color: var(--color_active-bg);
+		background-color: var(--color_warning-bg);
 		border-radius: 0.25rem;
 		box-shadow: var(--box-shadow);
 
@@ -27,7 +28,6 @@
 	}
 
 	@media screen and (prefers-reduced-motion: no-preference) {
-		// Enter (mounting)
 		&.dialog-enter {
 			opacity: 0;
 
@@ -36,31 +36,31 @@
 			}
 		}
 		&.dialog-enter-active {
-			opacity: 1;
 			transition: opacity var(--transition);
 
+			/* stylelint-disable-next-line a11y/media-prefers-reduced-motion */
 			& > .container {
 				transition: transform var(--transition);
+			}
+		}
+		&.dialog-enter-active,
+		&.dialog-enter-done {
+			opacity: 1;
+
+			& > .container {
 				transform: scale(1);
 			}
 		}
 
-		// Exit (unmounting)
 		&.dialog-exit {
 			opacity: 1;
-
-			& > .container {
-				opacity: 1;
-			}
 		}
 		&.dialog-exit-active {
+			transition: opacity var(--transition);
+		}
+		&.dialog-exit-active,
+		&.dialog-exit-done {
 			opacity: 0;
-			transition: opacity var(--transition) 250ms;
-
-			& > .container {
-				opacity: 0;
-				transition: opacity var(--transition);
-			}
 		}
 	}
 }
