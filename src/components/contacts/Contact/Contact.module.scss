@@ -3,8 +3,6 @@
 .contactBox {
 	--box-gap: 0.5rem;
 
-	position: relative;
-
 	display: flex;
 	gap: var(--box-gap);
 	justify-content: space-between;

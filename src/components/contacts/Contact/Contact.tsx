@@ -27,6 +27,8 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
         if (isViewMode) {
             history.push("/");
         }
+
+		setShowDelConfirm(false);
     }
 
     return (

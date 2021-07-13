@@ -1,6 +1,14 @@
 @use "../../../styles/library" as *;
 
+:global(#btn-sort-list) {
+	position: absolute;
+	top: calc(var(--content-padding-y) / 2);
+	right: var(--content-padding-x);
+}
+
 .contactsList {
+	position: relative;
+
 	@include flex(row);
 	flex-wrap: wrap;
 	gap: 1em;
@@ -23,32 +31,49 @@
 
 		@media screen and (prefers-reduced-motion: no-preference) {
 			&.contact-appear {
-				opacity: 1;
+				opacity: 0;
+				transform: scale(0);
 			}
 			&.contact-appear-active {
-				opacity: 0;
-				transition: opacity var(--transition);
+				transition:
+					opacity var(--transition),
+					transform var(--transition);
 			}
+			&.contact-appear-active,
+			&.contact-appear-done {
+				opacity: 1;
+				transform: scale(1);
+			}
+
 			&.contact-enter {
 				opacity: 0;
+				transform: scale(0);
 			}
 			&.contact-enter-active {
-				opacity: 1;
-				transition: opacity var(--transition);
+				transition:
+					opacity var(--transition),
+					transform var(--transition);
 			}
+			&.contact-enter-active,
+			&.contact-enter-done {
+				opacity: 1;
+				transform: scale(1);
+			}
+
 			&.contact-exit {
 				opacity: 1;
+				transform: scale(1);
 			}
 			&.contact-exit-active {
+				transition:
+					opacity var(--transition),
+					transform var(--transition);
+			}
+			&.contact-exit-active,
+			&.contact-exit-done {
 				opacity: 0;
-				transition: opacity var(--transition);
+				transform: scale(0);
 			}
 		}
 	}
-}
-
-:global(#btn-sort-list) {
-	position: absolute;
-	top: calc(var(--content-padding-y) / 2);
-	right: var(--content-padding-x);
 }

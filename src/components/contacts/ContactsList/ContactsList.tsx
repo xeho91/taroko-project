@@ -2,8 +2,8 @@ import { ContactsContext } from "$helpers/ContactsContext";
 import iconSortAscending from "@iconify-icons/bi/sort-alpha-down";
 import iconSortDescending from "@iconify-icons/bi/sort-alpha-up";
 import { ButtonIcon, Contact, Loader } from "$components";
-import React, { Fragment, useContext, useRef, useState } from "react";
-import { CSSTransition } from "react-transition-group";
+import React, { Fragment, useContext, useState } from "react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import styles from "./ContactsList.module.scss";
 import { contacts } from "./exampleContacts.json";
 
@@ -15,7 +15,6 @@ const ContactsList: FunctionComponent = () => {
         ContactsContext,
     );
     const [sortPressed, setSortPressed] = useState(false);
-    const contactRef = useRef(null);
 
     const icon = state.sortOrder === "descending"
         ? iconSortDescending
@@ -37,7 +36,7 @@ const ContactsList: FunctionComponent = () => {
 
     if (isProcessing && state.list.length === 0) {
         return (
-			<Loader message="Please wait, fetching data from the API..." />
+            <Loader message="Please wait, fetching data from the API..." />
         );
     } else {
         if (state.list.length > 0) {
@@ -55,31 +54,40 @@ const ContactsList: FunctionComponent = () => {
                         } order`}
                     />
 
-                    <ul className={styles.contactsList}>
-                        {state.list.map((contact, index) => {
+                    <TransitionGroup
+                        className={styles.contactsList}
+                        component="ul"
+                        appear
+                    >
+                        {state.list.map((contact) => {
                             return (
                                 <CSSTransition
-                                    key={index}
-                                    timeout={1000}
-                                    nodeRef={contactRef}
-                                    in
-                                    appear
+                                    key={contact.id}
+                                    timeout={500}
+                                    mountOnEnter
                                     classNames={{
                                         appear: styles["contact-appear"],
                                         appearActive: styles["contact-appear-active"],
+                                        appearDone: styles["contact-appear-done"],
+
                                         enter: styles["contact-enter"],
                                         enterActive: styles["contact-enter-active"],
+                                        enterDone: styles["contact-enter-done"],
+
                                         exit: styles["contact-exit"],
                                         exitActive: styles["contact-exit-active"],
+                                        exitDone: styles["contact-exit-done"],
                                     }}
                                 >
-                                    <li ref={contactRef} className={styles.contact}>
+                                    <li
+                                        className={styles.contact}
+                                    >
                                         <Contact {...contact} />
                                     </li>
                                 </CSSTransition>
                             );
                         })}
-                    </ul>
+                    </TransitionGroup>
                 </Fragment>
             );
         } else {
