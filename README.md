@@ -8,39 +8,39 @@ This is a repository for the assessment challenge from the Taroko company.
 
 ### Main objectives achieved
 
-- [x] - **CRUD** operations for a single contact with API
-	- [x] - **C**reate _(POST contact)_ - `/add`
-	- [x] - **R**eceive _(GET contact)_ - `/view/{id}`
-	- [x] - **U**pdate _(PATCH contact)_ - `/edit/{id}`
-	- [x] - **D**estroy _(DELETE contact)_ - in the `/view/{id}` or `/`
-- [x] - Sorting the list by first name in:
+- [x] **CRUD** operations for a single contact with API
+	- [x] **C**reate _(POST contact)_ - `/add`
+	- [x] **R**eceive _(GET contact)_ - `/view/{id}`
+	- [x] **U**pdate _(PATCH contact)_ - `/edit/{id}`
+	- [x] **D**estroy _(DELETE contact)_ - in the `/view/{id}` or `/`
+- [x] Sorting the list by first name in:
 	- [x] ascending order
 	- [x] descending Order
-- [x] - Provide an answer for the quiz
-- [x] - Create a confirmation for the user which automatically dissapears after
+- [x] Provide an answer for the quiz
+- [x] Create a confirmation for the user which automatically dissapears after
   5 seconds for the following actions:
-  - [x] - Add contact
-  - [x] - Edit contact
-  - [x] - Remove contact
-- [ ] - Works on the latests versions of:
+  - [x] Add contact
+  - [x] Edit contact
+  - [x] Remove contact
+- [ ] Works on the latests versions of:
 	- [x] Chrome (tested on desktop)
 	- [x] Firefox (tested on Android mobile and Desktop)
 	- [ ] Safari (I don't have access to Safari browser)
 
 ### Extra Objectives achieved
 
-- [x] - Add ESLint configuration
-- [x] - Use TypeScript
-- [x] - Use Sass
-	- [x] - Use CSS modules
-	- [x] - No usage of CSS libraries, except the list of my own colors
+- [x] Add ESLint configuration
+- [x] Use TypeScript
+- [x] Use Sass
+	- [x] Use CSS modules
+	- [x] No usage of CSS libraries, except the list of my own colors
 	  `@xeho91/colors`
-- [ ] - Use Next.js
-- [x] - Validation when entering / editing new contact data _(at the moment,
-  based on Browser API & CSS)_
-- [ ] - Animations / Transitions:
+- [ ] Use Next.js
+- [x] Validation when entering / editing new contact data
+	_(at the moment, based on Browser API & CSS)_
+- [ ] Animations / Transitions:
 	- [x] Confirmation Dialog _(appear in)_
-	- [ ] Contact List
+	- [x] Contact List
 	- [x] Loader
 	- [ ] Transitioning between pages
 
@@ -62,6 +62,8 @@ This is a repository for the assessment challenge from the Taroko company.
 
 - Node.JS LTS version _(>=14)_
 - [pnpm]
+- environment variable `API_URL` to be set to:
+  `https://taroko-contacts-server.herokuapp.com/api/contacts`
 
 [pnpm]: https://github.com/pnpm/pnpm
 
