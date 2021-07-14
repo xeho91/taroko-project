@@ -4,7 +4,12 @@ import type { StatusCodes } from "http-status-codes";
 interface APIresponse {
     statusCode: StatusCodes;
     message: string;
-    data: ContactSchema | ContactSchema[];
+}
+interface APIresponseList extends APIresponse {
+    data: ContactSchema[];
+}
+interface APIresponseContact extends APIresponse {
+    data: ContactSchema;
 }
 
 function setURL(id?: ContactSchema["id"]) {
@@ -18,24 +23,24 @@ const headers = {
     "Content-Type": "application/json",
 };
 
-export async function getListData(): Promise<APIresponse> {
+export async function getListData(): Promise<APIresponseList> {
     const request = await fetch(setURL(), {
         method: "GET",
         headers,
     });
     const response = await request.json();
 
-    return response as APIresponse;
+    return response as APIresponseList;
 }
 
-export async function getContactData(id: ContactSchema["id"]): Promise<APIresponse> {
+export async function getContactData(id: ContactSchema["id"]): Promise<APIresponseContact> {
     const request = await fetch(setURL(id), {
         method: "GET",
         headers,
     });
     const response = await request.json();
 
-    return response as APIresponse;
+    return response as APIresponseContact;
 }
 
 export async function addContactData(data: Omit<ContactSchema, "id">): Promise<APIresponse> {
@@ -69,4 +74,3 @@ export async function deleteContactData(id: ContactSchema["id"]): Promise<APIres
 
     return response as APIresponse;
 }
-

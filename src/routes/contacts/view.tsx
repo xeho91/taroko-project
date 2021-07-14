@@ -1,6 +1,6 @@
 import { ContactsContext } from "$helpers/ContactsContext";
 import { Contact, Loader } from "$components";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import type { ContactSchema } from "$types";
 import type { FunctionComponent } from "react";
@@ -13,30 +13,38 @@ interface ViewRouteParams {
 type ViewComponentProps = RouteComponentProps<ViewRouteParams>;
 
 const ViewContact: FunctionComponent<ViewComponentProps> = (props) => {
-    const contactId = parseInt(props.match.params.id);
-    const { isProcessing, state: { list } } = useContext(ContactsContext);
+    const endpointId = parseInt(props.match.params.id);
+
+    const { getContact } = useContext(ContactsContext);
+
     const [contactData, setContactData] = useState<ContactSchema>();
+    const [status, setStatus] = useState("Idle");
 
-	useEffect(() => {
-		if (!contactData) {
-			setContactData(list.find(({ id }) => id === contactId));
-		}
-	}, [contactData, list, contactId]);
+    useEffect(() => {
+        if (!contactData && status === "Idle") {
+            setStatus("Processing");
 
-    if (isProcessing) {
+            void (async function() {
+                try {
+                    setContactData(await getContact(endpointId));
+                    setStatus("Fetched");
+                } catch (err) {
+                    setStatus(err.message);
+                }
+            })();
+        }
+    }, [contactData, endpointId, getContact, status]);
+
+    if (status === "Processing") {
         return (
             <Loader message="Please wait, fetching contact data..." />
         );
+    } else if (status === "Fetched") {
+        return (
+            <Contact {...contactData!} />
+        );
     } else {
-        if (!contactData) {
-            return (
-                <p>Invalid contact ID: {contactId}.</p>
-            );
-        } else {
-            return (
-                <Contact {...contactData} />
-            );
-        }
+        return (<p>{status}</p>);
     }
 };
 

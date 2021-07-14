@@ -1,20 +1,40 @@
 import { ContactsContext } from "$helpers/ContactsContext";
 import iconSortAscending from "@iconify-icons/bi/sort-alpha-down";
 import iconSortDescending from "@iconify-icons/bi/sort-alpha-up";
+import { Button } from "src/components/buttons";
 import { ButtonIcon, Contact, Loader } from "$components";
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import styles from "./ContactsList.module.scss";
 import { contacts } from "./exampleContacts.json";
 
-import { Button } from "src/components/buttons";
 import type { FunctionComponent } from "react";
 
 const ContactsList: FunctionComponent = () => {
-    const { state, isProcessing, sortList, addContact } = useContext(
-        ContactsContext,
-    );
+    const {
+		state,
+        getList,
+        sortList,
+        addContact,
+    } = useContext(ContactsContext);
+
+	const [status, setStatus] = useState("Idle");
     const [sortPressed, setSortPressed] = useState(false);
+
+    useEffect(() => {
+        if (status === "Idle") {
+            setStatus("Processing");
+
+            void (async function() {
+                try {
+                    await getList();
+                    setStatus("Fetched");
+                } catch (err) {
+                    setStatus(err.message);
+                }
+            })();
+        }
+    }, [getList, status]);
 
     const icon = state.sortOrder === "descending"
         ? iconSortDescending
@@ -34,11 +54,11 @@ const ContactsList: FunctionComponent = () => {
         });
     }
 
-    if (isProcessing && state.list.length === 0) {
+	if (status === "Processing") {
         return (
             <Loader message="Please wait, fetching data from the API..." />
         );
-    } else {
+    } else if (status === "Fetched") {
         if (state.list.length > 0) {
             return (
                 <Fragment>
@@ -67,7 +87,8 @@ const ContactsList: FunctionComponent = () => {
                                     mountOnEnter
                                     classNames={{
                                         appear: styles["contact-appear"],
-                                        appearActive: styles["contact-appear-active"],
+                                        appearActive:
+                                            styles["contact-appear-active"],
                                         appearDone: styles["contact-appear-done"],
 
                                         enter: styles["contact-enter"],
@@ -111,7 +132,9 @@ const ContactsList: FunctionComponent = () => {
                 </Fragment>
             );
         }
-    }
+    } else {
+		return (<p>{status}</p>);
+	}
 };
 
 export default ContactsList;

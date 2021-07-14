@@ -1,10 +1,9 @@
 import { ContactsContext } from "$helpers/ContactsContext";
-import { ConfirmDialog, ContactEditor, Loader } from "$components";
-import React, { Fragment, useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { ContactEditor, Loader } from "$components";
+import React, { useContext, useEffect, useState } from "react";
 
 import type { ContactSchema } from "$types";
-import type { FormEvent, FunctionComponent } from "react";
+import type { FunctionComponent } from "react";
 import type { RouteComponentProps } from "react-router-dom";
 
 interface EditRouteParams {
@@ -14,69 +13,40 @@ interface EditRouteParams {
 type EditComponentProps = RouteComponentProps<EditRouteParams>;
 
 const EditContact: FunctionComponent<EditComponentProps> = (props) => {
-    const contactId = parseInt(props.match.params.id);
-    const history = useHistory();
+    const endpointId = parseInt(props.match.params.id);
 
-    const { state, isProcessing, editContact } = useContext(ContactsContext);
+    const { getContact } = useContext(ContactsContext);
+
     const [contactData, setContactData] = useState<ContactSchema>();
-    const [showConfirm, setShowConfirm] = useState(false);
+    const [status, setStatus] = useState("Idle");
 
     useEffect(() => {
-        if (!contactData) {
-            setContactData(state.list.find(({ id }) => id === contactId));
-        }
-    }, [contactData, state.list, contactId]);
+        if (!contactData && status === "Idle") {
+            setStatus("Processing");
 
-    if (isProcessing) {
+            void (async function() {
+                try {
+                    setContactData(await getContact(endpointId));
+                    setStatus("Fetched");
+                } catch (err) {
+                    setStatus(err.message);
+                }
+            })();
+        }
+    }, [contactData, endpointId, getContact, status]);
+
+    if (status === "Processing") {
         return (
             <Loader message="Please wait, receiving contact data..." />
         );
+    } else if (status === "Fetched") {
+        return (
+            <ContactEditor action="edit" data={contactData!} />
+        );
     } else {
-        if (!contactData) {
-            return <p>Invalid contact ID: contactId.</p>;
-        } else {
-            const handleSubmit = (e: FormEvent) => {
-                e.preventDefault();
-
-				const formEl = e.target as HTMLFormElement;
-				const formData = new FormData(formEl);
-
-                setContactData({
-					id: contactId,
-                    first_name: formData.get("first_name") as string,
-                    last_name: formData.get("last_name") as string,
-                    job: formData.get("job") as string,
-                    description: formData.get("description") as string,
-                });
-
-                setShowConfirm(true);
-            };
-            const handleConfirm = () => {
-                editContact(contactData);
-                history.push("/");
-            };
-
-            return (
-                <Fragment>
-                    <ContactEditor
-                        onSubmit={handleSubmit}
-                        action="edit"
-                        contactData={contactData}
-                    />
-
-                    {showConfirm
-                        ? (
-                            <ConfirmDialog
-                                message={`Are you sure you want to apply changes to ${contactData
-                                    ?.first_name} ${contactData?.last_name}?`}
-                                onConfirm={handleConfirm}
-                                onDeny={() => setShowConfirm(false)}
-                            />
-                        )
-                        : null}
-                </Fragment>
-            );
-        }
+        return (
+            <p>{status}</p>
+        );
     }
 };
 

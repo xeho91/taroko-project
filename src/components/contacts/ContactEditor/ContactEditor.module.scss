@@ -1,6 +1,8 @@
 @use "../../../styles/library" as *;
 
 .contactEditor {
+	position: relative;
+
 	@include flex(column);
 
 	/* width: max-content; */

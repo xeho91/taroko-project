@@ -2,19 +2,18 @@ import type { ContactsState } from "$helpers/ContactsContext";
 import type { ContactSchema } from "$types";
 
 export enum ContactsListActions {
-    Read = "GET",
-    Sort = "SORT",
+    Set = "SET LIST",
+    Sort = "SORT LIST",
 }
 
 export enum ContactActions {
-    Create = "ADD",
-    Read = "GET",
-    Update = "EDIT",
-    Destroy = "REMOVE",
+    Create = "ADD CONTACT",
+    Update = "EDIT CONTACT",
+    Destroy = "REMOVE CONTACT",
 }
 
-export interface ContactsListActionGet {
-    type: ContactsListActions.Read;
+export interface ContactsListActionSet {
+    type: ContactsListActions.Set;
     payload: ContactSchema[];
 }
 
@@ -24,7 +23,7 @@ export interface ContactsListActionSort {
 }
 
 type ContactsListAction =
-    | ContactsListActionGet
+    | ContactsListActionSet
     | ContactsListActionSort;
 
 // TODO:
@@ -35,11 +34,6 @@ type ContactsListAction =
 export interface ContactActionAdd {
     type: ContactActions.Create;
     payload: Omit<ContactSchema, "id">;
-}
-
-export interface ContactActionGet {
-    type: ContactActions.Read;
-    payload: ContactSchema["id"];
 }
 
 export interface ContactActionEdit {
@@ -54,7 +48,6 @@ export interface ContactActionRemove {
 
 type ContactAction =
     | ContactActionAdd
-    | ContactActionGet
     | ContactActionEdit
     | ContactActionRemove;
 
@@ -63,7 +56,7 @@ function reducer(
     action: ContactAction | ContactsListAction,
 ): ContactsState {
     switch (action.type) {
-        case ContactsListActions.Read: {
+        case ContactsListActions.Set: {
             const list = action.payload;
 
             return {
@@ -114,21 +107,6 @@ function reducer(
                 ...state,
                 list: [...state.list, newContact],
             };
-        }
-
-        case ContactActions.Read: {
-            const contactId = action.payload;
-            const contactData = state.list.find(({ id }) => id === contactId);
-
-            if (contactData) {
-                return {
-                    ...state,
-                    list: [contactData],
-                };
-            } else {
-				// FIXME: There has to be better handling, when contact not found.
-                return state;
-            }
         }
 
         case ContactActions.Update: {
