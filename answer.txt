@@ -1,4 +1,33 @@
 // NEW ANSWER
+
+Best option (snippet code): 1 - it has Event Delegation.
+
+Typically, in vanilla JavaScript, the event handler (listener) should be
+delegated to the parent element. To get the expected results - getting
+particular inner HTML code of a clicked element, there would have to be written
+better logic with event target. Delegating handler also helps with performance.
+
+
+However, in terms of React...
+The framework did this optimisation internally by delegating the event handler
+to the document body until React 17.
+Source: https://github.com/facebook/react/issues/13635
+
+Now, since the 17 version, this behaviour was removed.
+
+The core article I read which filled the gap in my knowledge is:
+https://blog.saeloun.com/2021/07/08/react-17-event-delagation.html
+
+The official source of this change:
+https://reactjs.org/blog/2020/08/10/react-v17-rc.html#changes-to-event-delegation
+
+To sum up, I was wrong with my answer to the quiz. The best snippet of code was
+number one. And for getting the desired result (child node inner HTML), change
+the logic to use event target, so there would be no side effects I encountered.
+
+
+
+// OLD ANSWER (WRONG)
 I stand by solution two as the choice for the best way of writing React code.
 
 The main reason is, it avoids side effects.
