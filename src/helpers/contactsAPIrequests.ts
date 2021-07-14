@@ -13,12 +13,12 @@ interface APIresponseContact extends APIresponse {
 }
 
 function setURL(id?: ContactSchema["id"]) {
-    const baseAPIurl = process.env["API_URL"];
+    const baseAPIurl = import.meta.env["VITE_API_URL"];
 
-	if (baseAPIurl) {
+	if (baseAPIurl && typeof baseAPIurl === "string") {
 		return `${baseAPIurl}/${id || ""}`;
 	} else {
-		throw new Error("The Environment variable - 'API_URL' is not defined!");
+		throw new Error("The Environment variable - 'VITE_API_URL' is not defined!");
 	}
 }
 

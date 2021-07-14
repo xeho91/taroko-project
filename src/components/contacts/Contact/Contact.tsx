@@ -15,7 +15,7 @@ type ContactProps = ContactSchema;
 const ContactItem: FunctionComponent<ContactProps> = (props) => {
     const { id, first_name, last_name, job, description } = props;
 
-    const { isProcessing, removeContact } = useContext(ContactsContext);
+    const { removeContact } = useContext(ContactsContext);
     const [showDelConfirm, setShowDelConfirm] = useState(false);
     const history = useHistory();
 
@@ -76,7 +76,7 @@ const ContactItem: FunctionComponent<ContactProps> = (props) => {
                     title="Delete this contact"
                     onClick={() => setShowDelConfirm(true)}
                     color="destroy"
-                    disabled={showDelConfirm && isProcessing}
+                    disabled={showDelConfirm}
                 />
             </div>
 
