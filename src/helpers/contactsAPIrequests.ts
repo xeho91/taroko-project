@@ -13,9 +13,13 @@ interface APIresponseContact extends APIresponse {
 }
 
 function setURL(id?: ContactSchema["id"]) {
-    const baseAPIurl = "https://taroko-contacts-server.herokuapp.com/api/contacts";
+    const baseAPIurl = process.env["API_URL"];
 
-    return `${baseAPIurl}/${id || ""}`;
+	if (baseAPIurl) {
+		return `${baseAPIurl}/${id || ""}`;
+	} else {
+		throw new Error("The Environment variable - 'API_URL' is not defined!");
+	}
 }
 
 const headers = {
