@@ -13,6 +13,7 @@ interface ViewRouteParams {
 type ViewComponentProps = RouteComponentProps<ViewRouteParams>;
 
 const ViewContact: FunctionComponent<ViewComponentProps> = (props) => {
+	console.log(props);
     const endpointId = parseInt(props.match.params.id);
 
     const { getContact } = useContext(ContactsContext);

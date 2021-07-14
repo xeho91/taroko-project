@@ -9,13 +9,13 @@ This is a repository for the assessment challenge from the Taroko company.
 ### Main objectives achieved
 
 - [x] **CRUD** operations for a single contact with API
-	- [x] **C**reate _(POST contact)_ - `/add`
-	- [x] **R**eceive _(GET contact)_ - `/view/{id}`
-	- [x] **U**pdate _(PATCH contact)_ - `/edit/{id}`
-	- [x] **D**estroy _(DELETE contact)_ - in the `/view/{id}` or `/`
+  - [x] **C**reate _(POST contact)_ - `/add`
+  - [x] **R**eceive _(GET contact)_ - `/view/{id}`
+  - [x] **U**pdate _(PATCH contact)_ - `/edit/{id}`
+  - [x] **D**estroy _(DELETE contact)_ - in the `/view/{id}` or `/`
 - [x] Sorting the list by first name in:
-	- [x] ascending order
-	- [x] descending Order
+  - [x] ascending order
+  - [x] descending Order
 - [x] Provide an answer for the quiz
 - [x] Create a confirmation for the user which automatically dissapears after
   5 seconds for the following actions:
@@ -23,27 +23,26 @@ This is a repository for the assessment challenge from the Taroko company.
   - [x] Edit contact
   - [x] Remove contact
 - [ ] Works on the latests versions of:
-	- [x] Chrome (tested on desktop)
-	- [x] Firefox (tested on Android mobile and Desktop)
-	- [ ] Safari (I don't have access to Safari browser)
+  - [x] Chrome (tested on desktop)
+  - [x] Firefox (tested on Android mobile and Desktop)
+  - [ ] Safari (I don't have access to Safari browser)
 
 ### Extra Objectives achieved
 
 - [x] Add ESLint configuration
 - [x] Use TypeScript
 - [x] Use Sass
-	- [x] Use CSS modules
-	- [x] No usage of CSS libraries, except the list of my own colors
-	  `@xeho91/colors`
+  - [x] Use CSS modules
+  - [x] No usage of CSS libraries, except the list of my own colors
+    `@xeho91/colors`
 - [ ] Use Next.js
 - [x] Validation when entering / editing new contact data
-	_(at the moment, based on Browser API & CSS)_
-- [ ] Animations / Transitions:
-	- [x] Confirmation Dialog _(appear in)_
-	- [x] Contact List
-	- [x] Loader
-	- [ ] Transitioning between pages
-
+  _(at the moment, based on Browser API & CSS)_
+- [x] Animations / Transitions:
+  - [x] Confirmation Dialog _(appear in)_
+  - [x] Contact List
+  - [x] Loader
+  - [x] Transitioning between pages
 
 ## Known issues
 
@@ -52,9 +51,9 @@ This is a repository for the assessment challenge from the Taroko company.
    then adding any further data will replace the last item in the array.
 
    - The `ContactContext` is saving those deleted IDs and replacing them with
-	 newly added contacts. However, on the refresh (page reload), those newly
-	 added may be gone, or replacing the existing one. From my observation -
-	 the one who has the id of contact list length from the API.
+     newly added contacts. However, on the refresh (page reload), those newly
+     added may be gone, or replacing the existing one. From my observation -
+     the one who has the id of contact list length from the API.
 
 ---
 
@@ -78,10 +77,9 @@ This is a repository for the assessment challenge from the Taroko company.
 
 2. Install the dependencies.
 
-	```sh
-	pnpm install
-
-	```
+   ```sh
+   pnpm install
+   ```
 
    **NOTE:** You most likely will encounter a problem here.
    One of my package with list of colors is published on GitHub npm packages
@@ -97,9 +95,9 @@ This is a repository for the assessment challenge from the Taroko company.
 3. To start the project in **development** mode, type the following command in
    your terminal:
 
-	```sh
-	pnpm dev
-	```
+   ```sh
+   pnpm dev
+   ```
 
    It will host the server on the
    [http://localhost:3000](http://localhost:3000) by default.

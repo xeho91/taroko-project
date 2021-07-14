@@ -38,20 +38,48 @@ body {
 
 		width: 100%;
 		max-width: var(--content-max-width);
-		padding: var(--content-padding-y) var(--content-padding-x);
 		overflow-y: auto;
 		scroll-behavior: smooth;
 
-		& > h1,
-		& > p {
-			color: var(--color-foreground);
+	}
+}
+
+.page {
+	position: absolute;
+	inset: 0;
+
+	padding: var(--content-padding-y) var(--content-padding-x);
+
+	& > h1,
+	& > p {
+		color: var(--color-foreground);
+	}
+
+	& > h1 {
+		margin: 0 0 calc(var(--content-padding-y) / 2);
+
+		text-align: center;
+		text-shadow: var(--text-shadow);
+	}
+
+	@media screen and (prefers-reduced-motion: no-preference) {
+		&.page-appear,
+		&.page-enter {
+			opacity: 0;
+			transform: scale(1.5);
 		}
-
-		& > h1 {
-			margin: 0 0 calc(var(--content-padding-y) / 2);
-
-			text-align: center;
-			text-shadow: var(--text-shadow);
+		&.page-appear-active,
+		&.page-enter-active {
+			transition:
+				opacity var(--transition),
+				transform var(--transition);
+		}
+		&.page-appear-active,
+		&.page-enter-active,
+		&.page-appear-done,
+		&.page-enter-done {
+			opacity: 1;
+			transform: scale(1);
 		}
 	}
 }
